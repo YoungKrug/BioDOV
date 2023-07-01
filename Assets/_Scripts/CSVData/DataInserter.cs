@@ -32,7 +32,6 @@ namespace _Scripts.CSVData
                     Name = csvValue
                 });
             }
-
             for (int i = 1 ; i < columnValues.Count; i++)
             {
                 columnValues = rowValues[i].Split(",").ToList();
