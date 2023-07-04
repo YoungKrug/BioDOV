@@ -5,6 +5,6 @@ namespace _Scripts.CSVData
 {
     public class CsvMapper 
     {
-       //List<CsvNodes> 
+       
     }
 }

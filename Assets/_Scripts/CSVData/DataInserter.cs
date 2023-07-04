@@ -32,7 +32,6 @@ namespace _Scripts.CSVData
                     Name = csvValue
                 });
             }
-
             for (int i = 1 ; i < columnValues.Count; i++)
             {
                 columnValues = rowValues[i].Split(",").ToList();
@@ -41,7 +40,8 @@ namespace _Scripts.CSVData
                     nodesList[j].States.Add(columnValues[j]);
                 }
             }
-            csv.Data.Add(nodesList);
+            csv.Data = nodesList;
+            new AnalysisCsvData().FindCasualtyInData(csv);
             csv.PrintData();
         }
 
