@@ -40,7 +40,8 @@ namespace _Scripts.CSVData
                     nodesList[j].States.Add(columnValues[j]);
                 }
             }
-            csv.Data.Add(nodesList);
+            csv.Data = nodesList;
+            new AnalysisCsvData().FindCasualtyInData(csv);
             csv.PrintData();
         }
 
