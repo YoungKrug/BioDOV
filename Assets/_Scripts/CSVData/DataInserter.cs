@@ -42,7 +42,7 @@ namespace _Scripts.CSVData
             }
             csv.Data = nodesList;
             new AnalysisCsvData().FindCasualtyInData(csv);
-            csv.PrintData();
+            csv.TurnCausalityDataIntoCsv();
         }
 
         
