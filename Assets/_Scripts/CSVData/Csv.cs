@@ -11,7 +11,6 @@ namespace _Scripts.CSVData
     {
         public string path = "Assets/SimulationFiles/datafile.csv";
         public List<CsvNodes> Data = new List<CsvNodes>();
-
         public void PrintData()
         {
             var matrix = Data;
@@ -37,10 +36,7 @@ namespace _Scripts.CSVData
                     string value = $"{casualty.CasualtyPercent}";
                     builder.Append($"{name},{value}\n");
                 }
-
-               
             }
-
             using (FileStream fs = File.Create(path))
             {
                 byte[] info = new UTF8Encoding(true).GetBytes(builder.ToString());
