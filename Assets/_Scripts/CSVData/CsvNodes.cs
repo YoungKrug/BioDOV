@@ -7,12 +7,12 @@ namespace _Scripts.CSVData
     public struct CasualtyInformation // 15 -> 20 bytes
     {
         public string Name;
-        public float CasualtyPercent;
+        public double CasualtyPercent;
 
     }
     public class CsvNodes
     {
-        public List<string> States = new List<string>();
+        public List<double> States = new List<double>();
         public string Name;
         public List<CasualtyInformation> CasualtyInformationList = new List<CasualtyInformation>();
 

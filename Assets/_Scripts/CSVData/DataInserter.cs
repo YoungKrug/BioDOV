@@ -32,16 +32,23 @@ namespace _Scripts.CSVData
                     Name = csvValue
                 });
             }
-            for (int i = 1 ; i < columnValues.Count; i++)
+            for (int i = 1 ; i < rowValues.Length; i++)
             {
                 columnValues = rowValues[i].Split(",").ToList();
                 for (int j = 0; j < columnValues.Count; j++)
                 {
-                    nodesList[j].States.Add(columnValues[j]);
+                    double val = 0;
+                    if (!double.TryParse(columnValues[j], out val))
+                    {
+                        val = 0;
+                    }
+                    nodesList[j].States.Add(val);
                 }
             }
+            
             csv.Data = nodesList;
-            new AnalysisCsvData().FindCasualtyInData(csv);
+            csv.Data.RemoveRange(0,3);
+            new AnalysisCsvData().CorrelationMatrix(csv);
             csv.TurnCausalityDataIntoCsv();
         }
 

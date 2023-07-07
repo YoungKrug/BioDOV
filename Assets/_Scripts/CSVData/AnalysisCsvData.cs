@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using MathNet.Numerics.Statistics;
 
 namespace _Scripts.CSVData
 {
@@ -10,65 +13,33 @@ namespace _Scripts.CSVData
         // I(Iteration), and B(x) also changes from the I -> I - 1, how does that affect the data.
         //Did B(x) affect A(x) or is there another variable that changes it. 
         //Going to look through all of it to find out similarities
-        public void FindCasualtyInData(Csv csv)
+        //Ended up using a correlation function, the Pearson Correlation Coefficient Test. 
+        //May run a meta-analysis in the future
+        public void CorrelationMatrix(Csv csv)
         {
-            List<CasualtyInformation> casualtyPercentageArray = new List<CasualtyInformation>();
             int count = csv.Data.Count;
             for (int i = 0; i < count; i++) //O(N^3) Needs to be reduced to O(N^2) or O(NLogN) if possible
             {
                 CsvNodes currentNode = csv.Data[i];
-              
-                foreach (var otherNode in csv.Data)
+                List<double> currentNodeStates = currentNode.States;
+                for (int j = 0; j < count; j++)
                 {
-                    if(currentNode.Name == otherNode.Name)
+                    if(i == j)
                         continue;
-                    string currentNodePreviousState = "";
-                    string otherNodePreviousState = "";
-                    float casualtyPercentage = 0;
-                    int stateCount = otherNode.States.Count;
-                    for (int j = 0; j < stateCount; j++)
-                    {
-                        string currentState = currentNode.States[j];
-                        string otherState = otherNode.States[j];
-                        if (currentNodePreviousState == "" && otherNodePreviousState == "")
-                        {
-                            currentNodePreviousState = currentState;
-                            otherNodePreviousState = otherState;
-                            continue;
-                        }
-                        // We need to determine states, HIGHLY EXPRESSED, NEUTRAL, LOW EXPRESSION
-                        // 
-                        
-                        //Did my state change?
-                        bool didCurrentNodeChange = currentState == currentNodePreviousState;
-                        bool didOtherNodeChane = otherState == otherNodePreviousState;
-
-                        if (didCurrentNodeChange && didOtherNodeChane)
-                        {
-                            casualtyPercentage  += (1.0f / stateCount);
-                        }
-                      
-                        //If the other node changed and mine didnt, no causation,
-                        //If my node changed and the other did not, no causation
-                        
-
-                    }
-                    CasualtyInformation casualtyItem = new CasualtyInformation
+                    CsvNodes otherNode = csv.Data[j];
+                    List<double> otherNodeStates = otherNode.States;
+                    double correlation = Correlation.Pearson(currentNodeStates, otherNodeStates);
+                    //double spearmans = Correlation.Spearman(currentNodeStates, otherNodeStates);
+                    if (Double.IsNaN(correlation))
+                        correlation = 0;
+                    currentNode.CasualtyInformationList.Add(new CasualtyInformation
                     {
                         Name = otherNode.Name,
-                        CasualtyPercent = casualtyPercentage
-                    };
-
-                    if (currentNode.CasualtyInformationList.All(x => x.Name != otherNode.Name))
-                    {
-                        currentNode.CasualtyInformationList.Add(casualtyItem);
-                    }
-
+                        CasualtyPercent =  correlation
+                    });
                 }
+                
             }
-            Debug.Log("done");
         }
-        
-        
     }
 }
