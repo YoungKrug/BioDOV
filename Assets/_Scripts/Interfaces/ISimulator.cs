@@ -1,4 +1,6 @@
-﻿namespace _Scripts.Interface
+﻿using _Scripts.Simulation.SimulationSettings;
+
+namespace _Scripts.Interface
 {
     public interface ISimulator
     {

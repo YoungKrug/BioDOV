@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using _Scripts.Simulation;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,6 +14,7 @@ namespace _Scripts.CSVData
         // Start is called before the first frame update
         [SerializeField] private TextAsset csvAsset;
         [SerializeField] private Csv _csv;
+        [SerializeField] private SimulationManager _manager;
 
         private void Start()
         {
@@ -50,6 +52,8 @@ namespace _Scripts.CSVData
             csv.Data.RemoveRange(0,3);
             new AnalysisCsvData().CorrelationMatrix(csv);
             csv.TurnCausalityDataIntoCsv();
+            _manager.CsvData = csv;
+            _manager.OnEventSimulate();
         }
 
         
