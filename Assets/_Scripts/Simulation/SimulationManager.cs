@@ -13,7 +13,7 @@ namespace _Scripts.Simulation
         public Csv CsvData = new Csv();
         public BaseEventScriptableObject ScriptableObject => BaseEventScriptableObject;
         [SerializeField] private SimulationObject _prefab;
-        private List<GameObject> _simulationObjects;
+        private List<SimulationObject> _simulationObjects = new List<SimulationObject>();
         private bool _init = false;
         
         public void OnEventSimulate()
@@ -23,6 +23,7 @@ namespace _Scripts.Simulation
                 Initialize();
                 _init = true;
             }
+            CurrentSimulation.Simulate(CsvData, _simulationObjects);
             //CurrentSimulation.Simulate();
         }
 
@@ -35,7 +36,9 @@ namespace _Scripts.Simulation
                 Transform transform = simulationObject.transform;
                 transform.position = new Vector3(transform.position.x + dist, transform.position.y);
                 simulationObject.GetComponent<SimulationObject>().Node = csv;
+                simulationObject.GetComponent<SimulationObject>().Simulator = CurrentSimulation;
                 dist += 2f;
+                _simulationObjects.Add(simulationObject.GetComponent<SimulationObject>());
             }
         }
         public void Execute(object eventObject)
