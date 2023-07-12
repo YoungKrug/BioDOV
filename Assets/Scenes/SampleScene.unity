@@ -305,7 +305,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalPosition: {x: 19.06, y: 1, z: -21.49}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -326,6 +326,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   csvAsset: {fileID: 4900000, guid: 3d9d839f3e651ce48a4425318f5eaf61, type: 3}
   _manager: {fileID: 963194231}
+  _eventScriptableObject: {fileID: 11400000, guid: 512fe4a7f004fb348a33c32bd04b65f0, type: 2}
 --- !u!114 &963194230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -354,7 +355,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0daeff4285ad42169d35e8dc97586f52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BaseEventScriptableObject: {fileID: 0}
+  BaseEventScriptableObject: {fileID: 11400000, guid: 512fe4a7f004fb348a33c32bd04b65f0, type: 2}
   _prefab: {fileID: 2667563360164460713, guid: e4ed8faf8399db545a97a134f33967f9, type: 3}
 --- !u!1 &1077845240
 GameObject:

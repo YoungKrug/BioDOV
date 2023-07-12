@@ -52,12 +52,12 @@ namespace _Scripts.CSVData
             
             csv.Data = nodesList;
             csv.Data.RemoveRange(0,3);
-            new AnalysisCsvData().CorrelationMatrix(csv);
-            csv.TurnCausalityDataIntoCsv();
-            DefaultSimulation defaultSimulation = new DefaultSimulation(csv, _eventScriptableObject); // Zombie Code
-            _manager.CsvData = csv; //Remove this and force it to work with UI *TODO*
-            _manager.CurrentSimulation = defaultSimulation;
-            _manager.OnEventSimulate();
+            new AnalysisCsvData().CorrespondingAnalysis(csv);
+            //csv.TurnCausalityDataIntoCsv();
+            //DefaultSimulation defaultSimulation = new DefaultSimulation(csv, _eventScriptableObject); // Zombie Code
+            //_manager.CsvData = csv; //Remove this and force it to work with UI *TODO*
+            //_manager.CurrentSimulation = defaultSimulation;
+           // _manager.OnEventSimulate();
         }
 
         
