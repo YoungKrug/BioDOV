@@ -48,6 +48,8 @@ namespace _Scripts.CSVData
 
         public void CorrespondingAnalysis(Csv csv)
         {
+            //You could use neural networks, (we dont have many data points)
+            //input(t) = state(t) t = time
             /*
              *Categorize the data into the number of times certain states occur (Ex ->  
              *
@@ -166,6 +168,7 @@ namespace _Scripts.CSVData
 
             var matrixBuilder = MathNet.Numerics.LinearAlgebra.Matrix<double>.Build;
             var modifiedMatrixOfResiduals = matrixBuilder.DenseOfArray(standardizedResidual.MatrixData);
+            
             var svdOfResiduals = modifiedMatrixOfResiduals.Svd();
             // U = left singular vectors
             // S = singular Values
@@ -210,6 +213,34 @@ namespace _Scripts.CSVData
                 float y = (float)leftSingularValues.MatrixData[i, 1];
                 csv.Data[i].Coords = new Vector2(x, y);
                 Debug.Log($"{csv.Data[i].Name} is at: {csv.Data[i].Coords.ToString()}");
+            }
+        }
+
+        public void PartialLeastSquareRegression(Csv csv)
+        {
+            /*
+             * Has to be used to predict,
+             * Based on this state, and this state of this gene, how is this gene effected
+             * Column names are the features **
+             */
+            csv.NumberOfDataPoints();
+            int split = csv.TotalNumberOfStates;
+            int extra = split % 3;
+            List<int[]> trainingData = new List<int[]>();
+            trainingData.Add(new int[split/3 + extra]);
+            int count = 0;
+            foreach (var node in csv.Data)
+            {
+                int index = 0;
+                foreach (var state in node.States)
+                {
+                    if (trainingData[count].Length >= index)
+                    {
+                        trainingData.Add(new int[split/3]);
+                        count++;
+                    }
+                    index++;
+                }
             }
         }
         public void CreateTextFile(string text, string fileName)

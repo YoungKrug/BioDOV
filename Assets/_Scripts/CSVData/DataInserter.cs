@@ -49,15 +49,14 @@ namespace _Scripts.CSVData
                     nodesList[j].States.Add(val);
                 }
             }
-            
             csv.Data = nodesList;
             csv.Data.RemoveRange(0,3);
             new AnalysisCsvData().CorrespondingAnalysis(csv);
             //csv.TurnCausalityDataIntoCsv();
-            //DefaultSimulation defaultSimulation = new DefaultSimulation(csv, _eventScriptableObject); // Zombie Code
-            //_manager.CsvData = csv; //Remove this and force it to work with UI *TODO*
-            //_manager.CurrentSimulation = defaultSimulation;
-           // _manager.OnEventSimulate();
+            DefaultSimulation defaultSimulation = new DefaultSimulation(csv, _eventScriptableObject); // Zombie Code
+            _manager.CsvData = csv; //Remove this and force it to work with UI *TODO*
+            _manager.CurrentSimulation = defaultSimulation;
+            _manager.OnEventSimulate();
         }
 
         

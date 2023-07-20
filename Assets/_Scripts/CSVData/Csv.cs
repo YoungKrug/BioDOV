@@ -11,6 +11,7 @@ namespace _Scripts.CSVData
     {
         public string path = "Assets/SimulationFiles/datafile.csv";
         public List<CsvNodes> Data = new List<CsvNodes>();
+        public int TotalNumberOfStates { get; private set; }
         public void PrintData()
         {
             var matrix = Data;
@@ -24,6 +25,19 @@ namespace _Scripts.CSVData
             Debug.Log(data);
         }
 
+        public void NumberOfDataPoints()
+        {
+            int number = 0;
+            foreach (var node in Data)
+            {
+                foreach (var state in node.States)
+                {
+                    number += 1;
+                }
+            }
+
+            TotalNumberOfStates = number;
+        }
         public void TurnCausalityDataIntoCsv()
         {
             StringBuilder builder = new StringBuilder();
