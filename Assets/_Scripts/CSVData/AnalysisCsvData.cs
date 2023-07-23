@@ -68,14 +68,15 @@ namespace _Scripts.CSVData
           
             PartialLeastSquaresAnalysis pls = new PartialLeastSquaresAnalysis  {
                 Method = AnalysisMethod.Center,
-                Algorithm = PartialLeastSquaresAlgorithm.NIPALS
+                Algorithm = PartialLeastSquaresAlgorithm.NIPALS //The more indepth model **
             };
-            var dataR = pls.Learn(inputs, outputs);
-            double[] newSampleChanges = new double[csv.Data.Count - 1];
+            var dataR = pls.Learn(inputs, outputs); // this is the learned model that transforms the data
+            double[] newSampleChanges = new double[csv.Data.Count - 1]; // Samples have to be == to features used (columns used)
 
             // Normalize the feature vector and make predictions
-            double[][] newSampleInput = new double[][] { newSampleChanges };
-            double[][] predictions = dataR.Transform(newSampleInput);
+            double[][] newSampleInput = new double[][] { newSampleChanges }; 
+            double[][] predictions = dataR.Transform(newSampleInput); // The transformation vector, needs a feature vector (**see above)
+             double prediction = predictions[0][0]; // this is the prediction 
             // Fit the model to the data
             //              pls.Learn(reducedInputs,);
             //
