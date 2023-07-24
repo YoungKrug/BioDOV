@@ -11,5 +11,6 @@ namespace _Scripts.Interface
         public void Simulate(Csv csv, List<SimulationObject> simulationGameObjects);
         public void SetAsCurrentSimulator();
         public void InteractedWithObject(SimulationObject simulationObject);
+        public double[] StatesArray { get; }
     }
 }

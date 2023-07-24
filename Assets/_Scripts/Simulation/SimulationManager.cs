@@ -2,6 +2,7 @@
 using _Scripts.CSVData;
 using _Scripts.Interface;
 using _Scripts.ScriptableObjects;
+using PlasticGui;
 using UnityEngine;
 
 namespace _Scripts.Simulation
@@ -34,9 +35,10 @@ namespace _Scripts.Simulation
             {
                 GameObject simulationObject = GameObject.Instantiate(_prefab.gameObject);
                 Transform transform = simulationObject.transform;
-                transform.position = new Vector3(dist * 1.5f, dist * 1.5f);
+                transform.position = new Vector3(dist * 1.1f, 0);
                 simulationObject.GetComponent<SimulationObject>().Node = csv;
                 simulationObject.GetComponent<SimulationObject>().Simulator = CurrentSimulation;
+                simulationObject.GetComponent<SimulationObject>().Material = simulationObject.GetComponent<Renderer>().material;
                 dist += 2f;
                 _simulationObjects.Add(simulationObject.GetComponent<SimulationObject>());
             }

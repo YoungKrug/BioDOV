@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using _Scripts.CSVData;
@@ -14,6 +15,8 @@ namespace _Scripts.Statistics
         private CsvNode _nodeToPredict;
         private PartialLeastSquaresAnalysis _partialLeastSquaresAnalysis;
         private MultivariateLinearRegression _linearRegressionModel;
+        private int _min = 0;
+        private int _max = 2;
 
         public PartialLeastSquaresPredictionModel(CsvNode node, Csv csv)
         {
@@ -29,7 +32,9 @@ namespace _Scripts.Statistics
             double[][]
                 predictions =
                     _linearRegressionModel.Transform(newSampleInput); // The transformation vector, needs a feature vector (**see above)
-            return predictions[0][0];
+            double val = Math.Clamp(predictions[0][0], _min, _max);
+            val = Math.Round(val);
+            return val;
         }
         private void Initialize(Csv csv, string target)
         {
@@ -72,10 +77,29 @@ namespace _Scripts.Statistics
                 Method = AnalysisMethod.Center,
                 Algorithm = PartialLeastSquaresAlgorithm.NIPALS //The more indepth model **
             };
-            
-            MultivariateLinearRegression multivariateLinearRegression = pls.Learn(inputs, outputs); // this is the learned model that transforms the data
-            _partialLeastSquaresAnalysis = pls;
-            _linearRegressionModel = multivariateLinearRegression;
+            Debug.Log(target);
+            try
+            {
+                MultivariateLinearRegression
+                    multivariateLinearRegression =
+                        pls.Learn(inputs, outputs); // this is the learned model that transforms the data
+                _partialLeastSquaresAnalysis = pls;
+                _linearRegressionModel = multivariateLinearRegression;
+            }
+            catch (Exception e)
+            {
+                pls = new PartialLeastSquaresAnalysis
+                {
+                    Method = AnalysisMethod.Center,
+                    Algorithm = PartialLeastSquaresAlgorithm.SIMPLS 
+                };
+                MultivariateLinearRegression
+                    multivariateLinearRegression =
+                        pls.Learn(inputs, outputs); // this is the learned model that transforms the data
+                _partialLeastSquaresAnalysis = pls;
+                _linearRegressionModel = multivariateLinearRegression;
+                Debug.Log(e);
+            }
         }
     }
 }

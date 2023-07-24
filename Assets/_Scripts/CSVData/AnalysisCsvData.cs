@@ -27,7 +27,7 @@ namespace _Scripts.CSVData
         {
             PartialLeastSquaresPredictionModel model = new PartialLeastSquaresPredictionModel(csv.Data[0], csv);
         }
-
+    
         public void CreateTextFile(string text, string fileName)
         {
             string file = $"{path}/{fileName}.csv";

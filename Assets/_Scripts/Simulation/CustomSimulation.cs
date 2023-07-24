@@ -25,5 +25,7 @@ namespace _Scripts.Simulation
         {
             throw new System.NotImplementedException();
         }
+
+        public double[] StatesArray { get; }
     }
 }

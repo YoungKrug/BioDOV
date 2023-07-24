@@ -38,25 +38,5 @@ namespace _Scripts.CSVData
 
             TotalNumberOfStates = number;
         }
-        public void TurnCausalityDataIntoCsv()
-        {
-            StringBuilder builder = new StringBuilder();
-            foreach (var node in Data)
-            {
-           
-                foreach (var casualty in node.CasualtyInformationList)
-                {
-                    string name = $"{node.Name}->{casualty.Name}";
-                    string value = $"{casualty.CasualtyPercent}";
-                    builder.Append($"{name},{value}\n");
-                }
-            }
-            using (FileStream fs = File.Create(path))
-            {
-                byte[] info = new UTF8Encoding(true).GetBytes(builder.ToString());
-                fs.Write(info, 0, info.Length);
-            }
-            
-        }
     }
 }

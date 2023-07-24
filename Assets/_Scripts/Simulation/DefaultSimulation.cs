@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using _Scripts.CSVData;
 using _Scripts.Interface;
 using _Scripts.ScriptableObjects;
 using _Scripts.Simulation.SimulationSettings;
+using _Scripts.Statistics;
 using UnityEngine;
 
 namespace _Scripts.Simulation
@@ -15,53 +17,62 @@ namespace _Scripts.Simulation
             _baseEventScriptableObject = baseEventScriptableObject;
         }
         [SerializeField] private BaseEventScriptableObject _baseEventScriptableObject;
+        public double[] StatesArray => _statesArray;
+        private double[] _statesArray;
         private Color _colorGreen = Color.green;
-        private Color _colorRed = Color.red;
+        private Color _colorYellow = Color.yellow;
         private SimulationData _simulationData;
         public List<SimulationObject> SimulatedGameObjects = new List<SimulationObject>();
         private Csv _csv;
         public void Simulate(Csv csv, List<SimulationObject> simulationGameObjects)
         {
             SimulatedGameObjects = simulationGameObjects;
+            int count = SimulatedGameObjects.Count;
+            double[] simulatedObjectStates = new double[count];
+            for (int i = 0; i < count; i++)
+            {
+                simulatedObjectStates[i] = SimulatedGameObjects[i].Node.CurrentState;
+            }
+
+            foreach (var simulatedObject in simulationGameObjects)
+            {
+                simulatedObject.Node.PredictionModel =
+                    new PartialLeastSquaresPredictionModel(simulatedObject.Node, csv);
+            }
+            _statesArray = simulatedObjectStates;
             _csv = csv;
-            // foreach (var simulationObject in SimulatedGameObjects)
-            // {
-            //     
-            // }
+            ModifyColorBasdOnState();
         }
 
+        private void ModifyColorBasdOnState()
+        {
+            foreach (SimulationObject obj in SimulatedGameObjects)
+            {
+                Color color = obj.Material.color;
+                double cState = obj.Node.CurrentState;
+                color =  cState > 1 ? _colorGreen : _colorYellow;
+                if (cState == 0)
+                    color = Color.white;
+                obj.Material.color = color;
+            }
+        }
         public void InteractedWithObject(SimulationObject simulationObject)
         {
-            //If we press 2 of them at once we have to determine how they effect other nodes
-            //essentially add there expression levels together.Do a mahattan distance for both of them 
-            // And look at the difference between the other node and them
-            //Opposites sides of the orgin -> negative association
-            // Near eachother in the same orgin -> some association to little
-            // The closer to 0, the less association
-            // Angles do matter -> 90o no associaton 30o -> may be some
-            // Check if they are close to the refelction of the coordinates
-            int indexOf = _csv.Data.IndexOf(simulationObject.Node);
-            List<CasualtyInformation> list = _csv.Data[indexOf].CasualtyInformationList;
-            foreach (var causalityInfo in list)
+            int index = SimulatedGameObjects.IndexOf(simulationObject);
+            double val = _statesArray[index];
+            double newVal = (val + 1) % 3;
+            _statesArray[index] = newVal;
+            foreach (var simulatedObject in SimulatedGameObjects)
             {
-                float cPercent = (float)causalityInfo.CasualtyPercent;
-                foreach (var node in SimulatedGameObjects)
-                {
-                    if (node.Node.Name == causalityInfo.Name)
-                    {
-                        Color color = node.Material.color;
-                        color = cPercent > 0 ? _colorGreen : _colorRed;
-                        if(cPercent == 0)
-                            color = Color.white;
-                        color.a *= Mathf.Abs(cPercent);
-                        node.Material.color = color;
-                        Debug.Log($"{node.Node.Name}: {cPercent}");
-                    }
-                }
+                if(simulatedObject.Node.Name == simulationObject.Node.Name)
+                    continue;
+                double newState = simulatedObject.Node.PredictionModel.Predict(_statesArray);
+                simulatedObject.Node.CurrentState = newState;
             }
-            //Color has to be related to the percentage they are related
-            //So Alpha = Abs(%Relation) for negative red, positive green  
+            ModifyColorBasdOnState();
         }
+
+       
 
         public void SetAsCurrentSimulator()
         {

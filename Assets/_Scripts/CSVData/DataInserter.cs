@@ -51,8 +51,10 @@ namespace _Scripts.CSVData
             }
             csv.Data = nodesList;
             csv.Data.RemoveRange(0,3);
-            new AnalysisCsvData().PartialLeastSquareRegression(csv);
-            //csv.TurnCausalityDataIntoCsv();
+            foreach (var node in csv.Data)
+            {
+                node.CurrentState = node.States[0]; // Set them all to there initial State
+            }
             DefaultSimulation defaultSimulation = new DefaultSimulation(csv, _eventScriptableObject); // Zombie Code
             _manager.CsvData = csv; //Remove this and force it to work with UI *TODO*
             _manager.CurrentSimulation = defaultSimulation;
