@@ -26,12 +26,12 @@ namespace _Scripts.CSVData
         private void OnInsertEvent()
         {
             Csv csv = new Csv();
-            List<CsvNodes> nodesList = new List<CsvNodes>();
+            List<CsvNode> nodesList = new List<CsvNode>();
             string[] rowValues = csvAsset.text.Split("\n");
             List<string> columnValues = rowValues[0].Split(",").ToList();
             foreach (var csvValue in columnValues)
             {
-                nodesList.Add(new CsvNodes
+                nodesList.Add(new CsvNode
                 {
                     Name = csvValue
                 });

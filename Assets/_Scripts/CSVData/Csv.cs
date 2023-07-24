@@ -10,7 +10,7 @@ namespace _Scripts.CSVData
     public class Csv
     {
         public string path = "Assets/SimulationFiles/datafile.csv";
-        public List<CsvNodes> Data = new List<CsvNodes>();
+        public List<CsvNode> Data = new List<CsvNode>();
         public int TotalNumberOfStates { get; private set; }
         public void PrintData()
         {

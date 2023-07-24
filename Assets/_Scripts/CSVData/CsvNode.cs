@@ -10,7 +10,7 @@ namespace _Scripts.CSVData
         public double CasualtyPercent;
 
     }
-    public class CsvNodes
+    public class CsvNode
     {
         public List<double> States = new List<double>();
         public Vector2 Coords;
