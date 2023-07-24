@@ -8,7 +8,7 @@ namespace _Scripts.Simulation
 {
     public class SimulationObject: MonoBehaviour, IPointerClickHandler
     {
-        public CsvNodes Node;
+        public CsvNode Node;
         public Material Material;
         public ISimulator Simulator;
 

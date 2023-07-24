@@ -26,12 +26,12 @@ namespace _Scripts.CSVData
         private void OnInsertEvent()
         {
             Csv csv = new Csv();
-            List<CsvNodes> nodesList = new List<CsvNodes>();
+            List<CsvNode> nodesList = new List<CsvNode>();
             string[] rowValues = csvAsset.text.Split("\n");
             List<string> columnValues = rowValues[0].Split(",").ToList();
             foreach (var csvValue in columnValues)
             {
-                nodesList.Add(new CsvNodes
+                nodesList.Add(new CsvNode
                 {
                     Name = csvValue
                 });
@@ -49,15 +49,14 @@ namespace _Scripts.CSVData
                     nodesList[j].States.Add(val);
                 }
             }
-            
             csv.Data = nodesList;
             csv.Data.RemoveRange(0,3);
-            new AnalysisCsvData().CorrespondingAnalysis(csv);
+            new AnalysisCsvData().PartialLeastSquareRegression(csv);
             //csv.TurnCausalityDataIntoCsv();
-            //DefaultSimulation defaultSimulation = new DefaultSimulation(csv, _eventScriptableObject); // Zombie Code
-            //_manager.CsvData = csv; //Remove this and force it to work with UI *TODO*
-            //_manager.CurrentSimulation = defaultSimulation;
-           // _manager.OnEventSimulate();
+            DefaultSimulation defaultSimulation = new DefaultSimulation(csv, _eventScriptableObject); // Zombie Code
+            _manager.CsvData = csv; //Remove this and force it to work with UI *TODO*
+            _manager.CurrentSimulation = defaultSimulation;
+            _manager.OnEventSimulate();
         }
 
         

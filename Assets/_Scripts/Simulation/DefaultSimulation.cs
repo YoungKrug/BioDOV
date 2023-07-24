@@ -32,6 +32,14 @@ namespace _Scripts.Simulation
 
         public void InteractedWithObject(SimulationObject simulationObject)
         {
+            //If we press 2 of them at once we have to determine how they effect other nodes
+            //essentially add there expression levels together.Do a mahattan distance for both of them 
+            // And look at the difference between the other node and them
+            //Opposites sides of the orgin -> negative association
+            // Near eachother in the same orgin -> some association to little
+            // The closer to 0, the less association
+            // Angles do matter -> 90o no associaton 30o -> may be some
+            // Check if they are close to the refelction of the coordinates
             int indexOf = _csv.Data.IndexOf(simulationObject.Node);
             List<CasualtyInformation> list = _csv.Data[indexOf].CasualtyInformationList;
             foreach (var causalityInfo in list)
