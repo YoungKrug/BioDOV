@@ -5,6 +5,7 @@ using _Scripts.CSVData;
 using Accord.Statistics.Analysis;
 using Accord.Statistics.Models.Regression.Linear;
 using UnityEditor;
+using UnityEngine;
 
 namespace _Scripts.Statistics
 {
@@ -18,20 +19,13 @@ namespace _Scripts.Statistics
         {
             _nodeToPredict = node;
             Initialize(csv, node.Name);
-            double[][] states = new double[][]
-            {
-                csv.Data[0].States.ToArray(),
-                csv.Data[1].States.ToArray()
-            };
-            Predict(states);
-
         }
 
-        public double Predict(double[][] newStateChanges)
+        public double Predict(double[] newStateChanges)
         {
             // Samples have to be == to features used (columns used)
             // Normalize the feature vector and make predictions
-            double[][] newSampleInput = newStateChanges;
+            double[][] newSampleInput = new double[][] {newStateChanges};
             double[][]
                 predictions =
                     _linearRegressionModel.Transform(newSampleInput); // The transformation vector, needs a feature vector (**see above)

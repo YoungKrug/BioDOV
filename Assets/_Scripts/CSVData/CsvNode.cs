@@ -13,7 +13,7 @@ namespace _Scripts.CSVData
     public class CsvNode
     {
         public List<double> States = new List<double>();
-        public Vector2 Coords;
+        public double currentState;
         public List<CasualtyInformation> CasualtyInformationList = new List<CasualtyInformation>();
         public string Name;
 
