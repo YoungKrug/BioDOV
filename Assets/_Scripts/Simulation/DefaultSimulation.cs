@@ -62,6 +62,7 @@ namespace _Scripts.Simulation
             double val = _statesArray[index];
             double newVal = (val + 1) % 3;
             _statesArray[index] = newVal;
+            simulationObject.Node.CurrentState = newVal;
             foreach (var simulatedObject in SimulatedGameObjects)
             {
                 if(simulatedObject.Node.Name == simulationObject.Node.Name)

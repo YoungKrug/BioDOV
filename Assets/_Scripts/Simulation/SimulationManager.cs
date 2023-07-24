@@ -35,7 +35,7 @@ namespace _Scripts.Simulation
             {
                 GameObject simulationObject = GameObject.Instantiate(_prefab.gameObject);
                 Transform transform = simulationObject.transform;
-                transform.position = new Vector3(dist * 1.1f, 0);
+                transform.position = new Vector3(dist * .5f, 0);
                 simulationObject.GetComponent<SimulationObject>().Node = csv;
                 simulationObject.GetComponent<SimulationObject>().Simulator = CurrentSimulation;
                 simulationObject.GetComponent<SimulationObject>().Material = simulationObject.GetComponent<Renderer>().material;
