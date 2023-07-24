@@ -34,7 +34,9 @@ namespace _Scripts.Statistics
                     _linearRegressionModel.Transform(newSampleInput); // The transformation vector, needs a feature vector (**see above)
             double val = Math.Clamp(predictions[0][0], _min, _max);
             val = Math.Round(val);
-            return val;
+            if (double.IsNaN(val))
+                val = _nodeToPredict.CurrentState; // if it is NAN that means the data(in this case) has no baring
+            return val;                            // Or effect on the current data (keep it the same)
         }
         private void Initialize(Csv csv, string target)
         {
@@ -98,7 +100,7 @@ namespace _Scripts.Statistics
                         pls.Learn(inputs, outputs); // this is the learned model that transforms the data
                 _partialLeastSquaresAnalysis = pls;
                 _linearRegressionModel = multivariateLinearRegression;
-                Debug.Log(e);
+                Debug.Log($"{target}: {e}");
             }
         }
     }
