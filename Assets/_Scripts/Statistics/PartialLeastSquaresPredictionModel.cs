@@ -29,8 +29,7 @@ namespace _Scripts.Statistics
             // Samples have to be == to features used (columns used)
             // Normalize the feature vector and make predictions
             double[][] newSampleInput = new double[][] {newStateChanges};
-            double[][]
-                predictions =
+            double[][] predictions =
                     _linearRegressionModel.Transform(newSampleInput); // The transformation vector, needs a feature vector (**see above)
             double val = Math.Clamp(predictions[0][0], _min, _max);
             val = Math.Round(val);

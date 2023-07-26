@@ -1,4 +1,5 @@
-﻿using _Scripts.Interface;
+﻿using System.Collections.Generic;
+using _Scripts.Interface;
 
 namespace _Scripts.Simulation.SimulationSettings
 {
@@ -6,5 +7,8 @@ namespace _Scripts.Simulation.SimulationSettings
     {
         public SimulationRules SimulationRules;
         public SimulationCustomization SimulationCustomization;
+        public List<SimulationObject> AllCurrentObjects;
+        public double[] CurrentStates;
+        public SimulationObject CurrentInteractedObject;
     }
 }

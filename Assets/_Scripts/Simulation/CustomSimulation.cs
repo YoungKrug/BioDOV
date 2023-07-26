@@ -11,21 +11,20 @@ namespace _Scripts.Simulation
     {
         [SerializeField] private BaseEventScriptableObject _baseEventScriptableObject;
         private SimulationData _simulationData;
-        public void Simulate(Csv csv, List<SimulationObject> simulationObjects)
+
+        public void Simulate(Csv csv, List<SimulationObject> simulationGameObjects)
         {
             throw new System.NotImplementedException();
         }
 
-        public void SetAsCurrentSimulator()
-        {
-            _baseEventScriptableObject.OnEventRaised(this);
-        }
-
-        public void InteractedWithObject(SimulationObject simulationObject)
+        public void ExecuteCommand(List<ICommand> commands, SimulationObject simulationObject)
         {
             throw new System.NotImplementedException();
         }
 
-        public double[] StatesArray { get; }
+        public void UndoCommand()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

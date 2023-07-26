@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using _Scripts.CSVData;
 using _Scripts.Interface;
 using _Scripts.ScriptableObjects;
@@ -43,6 +44,15 @@ namespace _Scripts.Simulation
                 _simulationObjects.Add(simulationObject.GetComponent<SimulationObject>());
             }
         }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                CurrentSimulation.UndoCommand();
+            }
+        }
+
         public void Execute(object eventObject)
         {
             CurrentSimulation = (ISimulator)eventObject;
