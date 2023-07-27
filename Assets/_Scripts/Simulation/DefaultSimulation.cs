@@ -54,6 +54,8 @@ namespace _Scripts.Simulation
             List<ICommand> commands = new List<ICommand>();
             commands.Add(new ChangeColorBasedOnStatesCommand());
             ExecuteCommand(commands, null);
+            _simulationInvoker.RemoveRecentCommand(); //The initial command does is removed as the user
+            //Should not be able to undo to the baseline state
         }
 
        

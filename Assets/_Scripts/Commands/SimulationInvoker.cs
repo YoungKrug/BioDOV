@@ -6,32 +6,47 @@ namespace _Scripts.Commands
 {
     public class SimulationInvoker
     {
-        private Stack<ICommand> _commands = new Stack<ICommand>();
+        private Stack<List<ICommand>> _commands = new Stack<List<ICommand>>();
         public void ExecuteCommand(List<ICommand> commands, ref SimulationData data)
         {
             foreach (var command in commands)
             {
                 command.Set(data);
                 command.Execute();
-                _commands.Push(command);
-               
+                data = command.Data;
+
             }
+            _commands.Push(commands);
         }
 
+        public void RemoveRecentCommand()
+        {
+            _commands?.Pop();
+        }
         public void UndoCommands(ref SimulationData data)
         {
-            ICommand command = _commands?.Pop();
-            command?.Set(data);
-            command?.Undo();
-
+            if (_commands.Count <= 0)
+                return;
+            List<ICommand> commands = _commands.Pop();
+            foreach (var command in commands)
+            {
+                command.Set(data);
+                command.Undo();
+                data = command.Data;
+            }
         }
-
-        public void UndoAllCommands()
+        public void UndoAllCommands(ref SimulationData data)
         {
             int count = _commands.Count;
             for (int i = 0; i < count; i++)
             {
-                _commands.Pop().Undo();
+                List<ICommand> commands = _commands.Pop();
+                foreach (var command in commands)
+                {
+                    command.Set(data);
+                    command.Undo();
+                    data = command.Data;
+                }
             }
         }
     }

@@ -30,12 +30,10 @@ namespace _Scripts.Commands
         
         public void Undo()
         {
-            Debug.Log("Redoing ClickDetection Command");
             SimulationData oldData = Data;
-            Debug.Log($"Old Value: {Data.CurrentStates[prevState.Key]}");
             oldData.CurrentStates[prevState.Key] = prevState.Value;
+            Data.AllCurrentObjects[prevState.Key].Node.CurrentState = prevState.Value;
             Data = oldData;
-            Debug.Log($"New Value: {Data.CurrentStates[prevState.Key]}");
         }
 
         public void Set(SimulationData data)

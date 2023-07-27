@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using _Scripts.Commands;
 using _Scripts.CSVData;
 using _Scripts.Interface;
 using _Scripts.ScriptableObjects;
@@ -45,6 +46,13 @@ namespace _Scripts.Simulation
             }
         }
 
+        public void Predict()
+        {
+            List<ICommand> comands = new List<ICommand>();
+            comands.Add(new PredictGeneStatesCommand());
+            comands.Add(new ChangeColorBasedOnStatesCommand());
+            CurrentSimulation.ExecuteCommand(comands, null);
+        }
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.R))
