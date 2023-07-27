@@ -31,12 +31,14 @@ namespace _Scripts.Commands
                     simulatedObject.hasInteracted = false;
                     continue;
                 }
+               
                 double newState = simulatedObject.Node.PredictionModel.Predict(Data.CurrentStates);
                 int index = Data.AllCurrentObjects.IndexOf(simulatedObject);
+                double prevState = Data.AllCurrentObjects[index].Node.CurrentState;
                 simulatedObject.Node.CurrentState = newState;
                 Data.CurrentStates[index] = newState;
-                _previousStates.Add(index, newState);
-            }
+                _previousStates.Add(index, prevState);
+            }s
         }
 
         public void Undo()
@@ -48,6 +50,7 @@ namespace _Scripts.Commands
                 SimulationObject obj = Data.AllCurrentObjects[index];
                 Data.CurrentStates[index] = val;
                 obj.Node.CurrentState = val;
+                Data.AllCurrentObjects[index] = obj;
             }
             Debug.Log("Undoing Predictions");
         }
