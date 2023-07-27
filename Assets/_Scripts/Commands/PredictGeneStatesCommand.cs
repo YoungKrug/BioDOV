@@ -38,7 +38,7 @@ namespace _Scripts.Commands
                 simulatedObject.Node.CurrentState = newState;
                 Data.CurrentStates[index] = newState;
                 _previousStates.Add(index, prevState);
-            }s
+            }
         }
 
         public void Undo()
