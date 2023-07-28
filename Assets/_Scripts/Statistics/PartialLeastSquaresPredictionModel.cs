@@ -17,6 +17,7 @@ namespace _Scripts.Statistics
         private MultivariateLinearRegression _linearRegressionModel;
         private int _min = 0;
         private int _max = 2;
+        public double UnRoundedPredictionValue = 0;
 
         public PartialLeastSquaresPredictionModel(CsvNode node, Csv csv)
         {
@@ -32,6 +33,7 @@ namespace _Scripts.Statistics
             double[][] predictions =
                     _linearRegressionModel.Transform(newSampleInput); // The transformation vector, needs a feature vector (**see above)
             double val = Math.Clamp(predictions[0][0], _min, _max);
+            UnRoundedPredictionValue = double.IsNaN(val) ? 0d : val;
             val = Math.Round(val);
             if (double.IsNaN(val))
                 val = _nodeToPredict.CurrentState; // if it is NAN that means the data(in this case) has no baring

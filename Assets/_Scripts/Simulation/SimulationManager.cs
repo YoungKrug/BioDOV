@@ -48,10 +48,11 @@ namespace _Scripts.Simulation
 
         public void Predict()
         {
-            List<ICommand> comands = new List<ICommand>();
-            comands.Add(new PredictGeneStatesCommand());
-            comands.Add(new ChangeColorBasedOnStatesCommand());
-            CurrentSimulation.ExecuteCommand(comands, null);
+            List<ICommand> commands = new List<ICommand>();
+            commands.Add(new PredictGeneStatesCommand());
+            commands.Add(new ChangeColorBasedOnStatesCommand());
+            commands.Add(new ExtrudeObjectCommand());
+            CurrentSimulation.ExecuteCommand(commands, null);
         }
         private void Update()
         {
