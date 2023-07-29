@@ -6,8 +6,7 @@ namespace _Scripts.Simulation.SimulationSettings
 {
     public struct SimulationData
     {
-        public SimulationRules SimulationRules;
-        public SimulationCustomization SimulationCustomization;
+        public SimulationCustomizationRules SimulationRules;
         public List<SimulationObject> AllCurrentObjects;
         public double[] CurrentStates;
         public SimulationObject CurrentInteractedObject;
