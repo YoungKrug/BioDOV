@@ -675,7 +675,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BaseEventScriptableObject: {fileID: 11400000, guid: 512fe4a7f004fb348a33c32bd04b65f0, type: 2}
-  _prefab: {fileID: 2667563360164460713, guid: e4ed8faf8399db545a97a134f33967f9, type: 3}
+  prefab: {fileID: 2667563360164460713, guid: e4ed8faf8399db545a97a134f33967f9, type: 3}
 --- !u!1 &1077845240
 GameObject:
   m_ObjectHideFlags: 0
