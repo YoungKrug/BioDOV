@@ -1,4 +1,6 @@
-﻿using _Scripts.Interface;
+﻿using System.Collections.Generic;
+using _Scripts.CSVData;
+using _Scripts.Interface;
 using _Scripts.ScriptableObjects;
 using _Scripts.Simulation.SimulationSettings;
 using UnityEngine;
@@ -9,14 +11,20 @@ namespace _Scripts.Simulation
     {
         [SerializeField] private BaseEventScriptableObject _baseEventScriptableObject;
         private SimulationData _simulationData;
-        public void Simulate()
+
+        public void Simulate(Csv csv, List<SimulationObject> simulationGameObjects)
         {
             throw new System.NotImplementedException();
         }
 
-        public void SetAsCurrentSimulator()
+        public void ExecuteCommand(List<ICommand> commands, SimulationObject simulationObject)
         {
-            _baseEventScriptableObject.OnEventRaised(this);
+            throw new System.NotImplementedException();
+        }
+
+        public void UndoCommand()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

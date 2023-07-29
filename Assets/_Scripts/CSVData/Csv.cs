@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.Collections.Generic;
 using System.Text;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 namespace _Scripts.CSVData
@@ -10,7 +7,8 @@ namespace _Scripts.CSVData
     public class Csv
     {
         public string path = "Assets/SimulationFiles/datafile.csv";
-        public List<CsvNodes> Data = new List<CsvNodes>();
+        public List<CsvNode> Data = new List<CsvNode>();
+        public int TotalNumberOfStates { get; private set; }
         public void PrintData()
         {
             var matrix = Data;
@@ -24,25 +22,18 @@ namespace _Scripts.CSVData
             Debug.Log(data);
         }
 
-        public void TurnCausalityDataIntoCsv()
+        public void NumberOfDataPoints()
         {
-            StringBuilder builder = new StringBuilder();
+            int number = 0;
             foreach (var node in Data)
             {
-           
-                foreach (var casualty in node.CasualtyInformationList)
+                foreach (var state in node.States)
                 {
-                    string name = $"{node.Name}->{casualty.Name}";
-                    string value = $"{casualty.CasualtyPercent}";
-                    builder.Append($"{name},{value}\n");
+                    number += 1;
                 }
             }
-            using (FileStream fs = File.Create(path))
-            {
-                byte[] info = new UTF8Encoding(true).GetBytes(builder.ToString());
-                fs.Write(info, 0, info.Length);
-            }
-            
+
+            TotalNumberOfStates = number;
         }
     }
 }
