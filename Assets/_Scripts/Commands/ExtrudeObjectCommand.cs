@@ -8,7 +8,6 @@ namespace _Scripts.Commands
     public class ExtrudeObjectCommand : ICommand
     {
         public SimulationData Data { get; private set; }
-        private Vector3 _scaler = new Vector3(0.3f, 0.3f, 0.3f);
         private Dictionary<int, Vector3> _previousStates = new Dictionary<int, Vector3>();
         public void Execute()
         {
@@ -16,8 +15,9 @@ namespace _Scripts.Commands
             {
                 float scaler = (float)simulationObject.Node.PredictionModel.UnRoundedPredictionValue;
                 int index = Data.AllCurrentObjects.IndexOf(simulationObject);
-                Vector3 scaleVector = _scaler;
-                _previousStates.Add(index, scaleVector);
+                Vector3 currentScaler = simulationObject.gameObject.transform.localScale;
+                Vector3 scaleVector = Data.Prefab.transform.localScale;
+                _previousStates.Add(index, currentScaler);
                 scaleVector += new Vector3(0, scaler);
                 simulationObject.gameObject.transform.localScale = scaleVector;
             }

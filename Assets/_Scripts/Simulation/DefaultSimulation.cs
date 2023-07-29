@@ -13,14 +13,15 @@ namespace _Scripts.Simulation
     public class DefaultSimulation : ISimulator // Invoker Class
     {
         [SerializeField] private BaseEventScriptableObject _baseEventScriptableObject;
-        private SimulationData _simulationData;
+        private SimulationData _simulationData = new SimulationData();
         private SimulationInvoker _simulationInvoker = new SimulationInvoker();
         private Csv _csv;
         private bool isInitalize = false;
-        public DefaultSimulation(Csv csv, BaseEventScriptableObject baseEventScriptableObject)
+        public DefaultSimulation(Csv csv, BaseEventScriptableObject baseEventScriptableObject, GameObject simPrefab)
         {
             _csv = csv;
             _baseEventScriptableObject = baseEventScriptableObject;
+            _simulationData.Prefab = simPrefab;
         }
    
         public void Simulate(Csv csv, List<SimulationObject> simulationGameObjects)
@@ -35,8 +36,6 @@ namespace _Scripts.Simulation
 
         private void Initialize(List<SimulationObject> simulationGameObjects)
         {
-            
-            _simulationData = new SimulationData();
             _simulationData.AllCurrentObjects = simulationGameObjects;
             int count = _simulationData.AllCurrentObjects.Count;
             double[] simulatedObjectStates = new double[count];

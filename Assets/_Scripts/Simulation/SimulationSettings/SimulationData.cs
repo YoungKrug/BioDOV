@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using _Scripts.Interface;
+using UnityEngine;
 
 namespace _Scripts.Simulation.SimulationSettings
 {
@@ -10,5 +11,6 @@ namespace _Scripts.Simulation.SimulationSettings
         public List<SimulationObject> AllCurrentObjects;
         public double[] CurrentStates;
         public SimulationObject CurrentInteractedObject;
+        public GameObject Prefab;
     }
 }

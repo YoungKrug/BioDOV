@@ -1,21 +1,7 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using System.Text;
 using _Scripts.Statistics;
-using Accord.Math;
-using Accord.Math.Decompositions;
-using Accord.Statistics.Analysis;
-using Accord.Statistics.Kernels;
-using UnityEngine;
-using Accord.Statistics.Models.Regression;
-using Accord.Statistics.Models.Regression.Fitting;
-using Accord.Statistics.Models.Regression.Linear;
-using Codice.Client.Common.TreeGrouper;
-using MathNet.Numerics.LinearAlgebra.Double;
-using Matrix = Accord.Math.Matrix;
+
 
 namespace _Scripts.CSVData
 {

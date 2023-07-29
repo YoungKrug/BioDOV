@@ -55,7 +55,8 @@ namespace _Scripts.CSVData
             {
                 node.CurrentState = node.States[0]; // Set them all to there initial State
             }
-            DefaultSimulation defaultSimulation = new DefaultSimulation(csv, _eventScriptableObject); // Zombie Code
+            DefaultSimulation defaultSimulation = new DefaultSimulation(csv, _eventScriptableObject, 
+                _manager.prefab.gameObject); // Zombie Code
             _manager.CsvData = csv; //Remove this and force it to work with UI *TODO*
             _manager.CurrentSimulation = defaultSimulation;
             _manager.OnEventSimulate();
