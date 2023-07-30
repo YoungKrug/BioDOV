@@ -29,7 +29,7 @@ namespace _Scripts.Simulation
             //CurrentSimulation.Simulate();
         }
 
-        private void Initialize()
+        private bool Initialize()
         {
             float dist = 2f;
             foreach (var csv in CsvData.Data)
@@ -43,15 +43,18 @@ namespace _Scripts.Simulation
                 dist += 2f;
                 _simulationObjects.Add(simulationObject.GetComponent<SimulationObject>());
             }
+
+            return true;
         }
 
-        public void Predict()
+        public bool Predict()
         {
             List<ICommand> commands = new List<ICommand>();
             commands.Add(new PredictGeneStatesCommand());
             commands.Add(new ChangeColorBasedOnStatesCommand());
             commands.Add(new ExtrudeObjectCommand());
             CurrentSimulation.ExecuteCommand(commands, null);
+            return true;
         }
         private void Update()
         {
