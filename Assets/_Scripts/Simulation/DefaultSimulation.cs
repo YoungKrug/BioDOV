@@ -31,7 +31,10 @@ namespace _Scripts.Simulation
                 _csv = csv;
                 Initialize(simulationGameObjects);
                 isInitalize = false;
+                return true;
             }
+
+            return true;
         }
 
         private bool Initialize(List<SimulationObject> simulationGameObjects)
@@ -64,6 +67,7 @@ namespace _Scripts.Simulation
             _simulationData.CurrentInteractedObject = simulationObject;
             SimulationData data = _simulationInvoker.ExecuteCommand(commands, ref _simulationData);
             return _simulationData.Equals(data);
+            
         }
         public bool UndoCommand()
         {
