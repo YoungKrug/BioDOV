@@ -8,8 +8,8 @@ namespace _Scripts.Interface
 {
     public interface ISimulator
     {
-        public void Simulate(Csv csv, List<SimulationObject> simulationGameObjects);
-        public void ExecuteCommand(List<ICommand> commands, SimulationObject simulationObject);
-        public void UndoCommand();
+        public bool Simulate(Csv csv, List<SimulationObject> simulationGameObjects);
+        public bool ExecuteCommand(List<ICommand> commands, SimulationObject simulationObject);
+        public bool UndoCommand();
     }
 }

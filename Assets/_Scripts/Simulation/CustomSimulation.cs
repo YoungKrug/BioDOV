@@ -12,17 +12,17 @@ namespace _Scripts.Simulation
         [SerializeField] private BaseEventScriptableObject _baseEventScriptableObject;
         private SimulationData _simulationData;
 
-        public void Simulate(Csv csv, List<SimulationObject> simulationGameObjects)
+        public bool Simulate(Csv csv, List<SimulationObject> simulationGameObjects)
         {
             throw new System.NotImplementedException();
         }
 
-        public void ExecuteCommand(List<ICommand> commands, SimulationObject simulationObject)
+        public bool ExecuteCommand(List<ICommand> commands, SimulationObject simulationObject)
         {
             throw new System.NotImplementedException();
         }
 
-        public void UndoCommand()
+        public bool UndoCommand()
         {
             throw new System.NotImplementedException();
         }

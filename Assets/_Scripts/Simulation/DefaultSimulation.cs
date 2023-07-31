@@ -24,7 +24,7 @@ namespace _Scripts.Simulation
             _simulationData.Prefab = simPrefab;
         }
    
-        public void Simulate(Csv csv, List<SimulationObject> simulationGameObjects)
+        public bool Simulate(Csv csv, List<SimulationObject> simulationGameObjects)
         {
             if (!isInitalize)
             {
@@ -34,7 +34,7 @@ namespace _Scripts.Simulation
             }
         }
 
-        private void Initialize(List<SimulationObject> simulationGameObjects)
+        private bool Initialize(List<SimulationObject> simulationGameObjects)
         {
             _simulationData.AllCurrentObjects = simulationGameObjects;
             int count = _simulationData.AllCurrentObjects.Count;
@@ -52,20 +52,23 @@ namespace _Scripts.Simulation
             _simulationData.CurrentStates = simulatedObjectStates;
             List<ICommand> commands = new List<ICommand>();
             commands.Add(new ChangeColorBasedOnStatesCommand());
-            ExecuteCommand(commands, null);
+            bool hasExecuted = ExecuteCommand(commands, null);
             _simulationInvoker.RemoveRecentCommand(); //The initial command does is removed as the user
             //Should not be able to undo to the baseline state
+            return hasExecuted;
         }
 
        
-        public void ExecuteCommand(List<ICommand> commands, SimulationObject simulationObject)
+        public bool ExecuteCommand(List<ICommand> commands, SimulationObject simulationObject)
         {
             _simulationData.CurrentInteractedObject = simulationObject;
-            _simulationInvoker.ExecuteCommand(commands, ref _simulationData);
+            SimulationData data = _simulationInvoker.ExecuteCommand(commands, ref _simulationData);
+            return _simulationData.Equals(data);
         }
-        public void UndoCommand()
+        public bool UndoCommand()
         {
-            _simulationInvoker.UndoCommands(ref _simulationData);
+            SimulationData data = _simulationInvoker.UndoCommands(ref _simulationData);
+            return _simulationData.Equals(data);
         }
         public void SetAsCurrentSimulator()
         {
