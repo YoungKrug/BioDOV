@@ -12,8 +12,8 @@ namespace _Scripts.Simulation
 {
     public class SimulationManager: MonoBehaviour, IEventReactor // Move this to SimulationController
     {
-        public BaseEventScriptableObject BaseEventScriptableObject;
-        public BaseEventScriptableObject ScriptableObject => BaseEventScriptableObject;
+        public BaseEventScriptableObject baseEventScriptableObject;
+        public BaseEventScriptableObject ScriptableObject => baseEventScriptableObject;
         private readonly SimulationController _simulationController = new SimulationController();
         public SimulationConfig Config = new SimulationConfig();
         private bool _init;
@@ -30,7 +30,7 @@ namespace _Scripts.Simulation
         private void Initialize()
         {
             Config = _simulationController.Initialize(Config);
-            BaseEventScriptableObject.Subscribe(this);
+            baseEventScriptableObject.Subscribe(this);
         }
 
         public void Predict()
