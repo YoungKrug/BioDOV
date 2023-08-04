@@ -12,7 +12,7 @@ namespace _Scripts.Simulation
         [SerializeField] private BaseEventScriptableObject _baseEventScriptableObject;
         private SimulationData _simulationData;
 
-        public bool Simulate(Csv csv, List<SimulationObject> simulationGameObjects)
+        public bool Simulate(SimulationConfig config)
         {
             throw new System.NotImplementedException();
         }

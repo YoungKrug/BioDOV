@@ -11,6 +11,17 @@ using UnityEngine.TestTools;
 public class CsvTesting
 {
     // A Test behaves as an ordinary method
+    private SimulationData _simulationData;
+    [SetUp]
+    public void CreateData()
+    {
+        _simulationData = new SimulationData
+        {
+            CurrentStates = new double[20],
+            AllCurrentObjects = new List<SimulationObject>(20)
+        };
+        //DefaultSimulation
+    }
     [Test]
     public void CsvTestingSimplePasses()
     {

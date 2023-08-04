@@ -33,12 +33,13 @@ namespace _Scripts.CSVData
 
         public bool CreateSimulation(Csv csv)
         {
-            DefaultSimulation defaultSimulation = new DefaultSimulation(csv, _eventScriptableObject, 
-                _manager.prefab.gameObject); // Zombie Code
-            _manager.CsvData = csv; //Remove this and force it to work with UI *TODO*
-            _manager.CurrentSimulation = defaultSimulation;
-            _manager.OnEventSimulate();
-            return _manager.CurrentSimulation == defaultSimulation;
+            // DefaultSimulation defaultSimulation = new DefaultSimulation(csv, _eventScriptableObject, 
+            //     _manager.prefab.gameObject); // Zombie Code
+            // _manager.CsvData = csv; //Remove this and force it to work with UI *TODO*
+            // _manager.CurrentSimulation = defaultSimulation;
+            // _manager.OnEventSimulate();
+            // return _manager.CurrentSimulation == defaultSimulation;
+            return false;
         }
 
         

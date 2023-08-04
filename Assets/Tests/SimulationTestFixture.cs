@@ -14,8 +14,7 @@ namespace Tests
         [SetUp]
         public void SetUp()
         {
-            _simulation = new DefaultSimulation(new Csv(), 
-                null, new GameObject());
+            
         }
 
         [Test]
