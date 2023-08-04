@@ -9,7 +9,7 @@ namespace _Scripts.Commands
     {
         public SimulationData Data { get; private set; }
         private Dictionary<int, Vector3> _previousStates = new Dictionary<int, Vector3>();
-        public void Execute()
+        public bool Execute()
         {
             foreach (var simulationObject in Data.AllCurrentObjects)
             {
@@ -21,9 +21,10 @@ namespace _Scripts.Commands
                 scaleVector += new Vector3(0, scaler);
                 simulationObject.gameObject.transform.localScale = scaleVector;
             }
+            return true;
         }
 
-        public void Undo()
+        public bool Undo()
         {
             foreach (var previousState in _previousStates)
             {
@@ -32,6 +33,7 @@ namespace _Scripts.Commands
                 GameObject simulationObject = Data.AllCurrentObjects[index].gameObject;
                 simulationObject.transform.localScale = previousVector;
             }
+            return true;
         }
 
         public void Set(SimulationData data)

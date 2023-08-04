@@ -12,7 +12,7 @@ namespace _Scripts.Commands
 
         public SimulationData Data { get; private set; }
         private KeyValuePair<int, double> prevState = new KeyValuePair<int, double>();
-        public void Execute()
+        public bool Execute()
         {
             SimulationData currentData = Data;
             double[] states = Data.CurrentStates;
@@ -26,14 +26,16 @@ namespace _Scripts.Commands
             currentObject.Node.CurrentState = newVal;
             currentData.CurrentStates = states;
             Data = currentData;
+            return true;
         }
         
-        public void Undo()
+        public bool Undo()
         {
             SimulationData oldData = Data;
             oldData.CurrentStates[prevState.Key] = prevState.Value;
             Data.AllCurrentObjects[prevState.Key].Node.CurrentState = prevState.Value;
             Data = oldData;
+            return true;
         }
 
         public void Set(SimulationData data)

@@ -13,14 +13,14 @@ namespace _Scripts.Commands
     {
         private Dictionary<int, double> _previousStates = new Dictionary<int, double>();
         public SimulationData Data { get; private set; }
-        public void Execute()
+        public bool Execute()
         {
             
             bool canPredict = Data.AllCurrentObjects.Any(x => x.hasInteracted);
             if (!canPredict)
             {
                 Debug.Log("No changes, no need to predict");
-                return;
+                return false;
             }
 
             Debug.Log("Predicting");
@@ -39,9 +39,10 @@ namespace _Scripts.Commands
                 Data.CurrentStates[index] = newState;
                 _previousStates.Add(index, prevState);
             }
+            return true;
         }
 
-        public void Undo()
+        public bool Undo()
         {
             for (int i = 0; i < _previousStates.Count; i++)
             {
@@ -53,6 +54,7 @@ namespace _Scripts.Commands
                 Data.AllCurrentObjects[index] = obj;
             }
             Debug.Log("Undoing Predictions");
+            return true;
         }
 
         public void Set(SimulationData data)

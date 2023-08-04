@@ -5,14 +5,16 @@ using _Scripts.Interface;
 using _Scripts.ScriptableObjects;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 namespace _Scripts.Simulation
 {
-    public class SimulationManager: MonoBehaviour, IEventReactor
+    public class SimulationManager: MonoBehaviour, IEventReactor // Move this to SimulationController
     {
         public ISimulator CurrentSimulation;
         public BaseEventScriptableObject BaseEventScriptableObject;
         public Csv CsvData = new Csv();
+        public Button button;
         public BaseEventScriptableObject ScriptableObject => BaseEventScriptableObject;
         public SimulationObject prefab;
         private List<SimulationObject> _simulationObjects = new List<SimulationObject>();
@@ -43,7 +45,7 @@ namespace _Scripts.Simulation
                 dist += 2f;
                 _simulationObjects.Add(simulationObject.GetComponent<SimulationObject>());
             }
-
+            button.onClick.AddListener(() => {Predict();});
             return true;
         }
 

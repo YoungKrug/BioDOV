@@ -33,7 +33,6 @@ namespace _Scripts.Simulation
                 isInitalize = false;
                 return true;
             }
-
             return true;
         }
 
