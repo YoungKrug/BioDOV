@@ -12,23 +12,17 @@ namespace _Scripts.Simulation
     {
         public CsvNode Node;
         public Material Material;
-        public ISimulator Simulator;
         public bool hasInteracted;
-
-        public void Start()
+        private SimulationObjectResponder _responder;
+        public void Init(ISimulator simulator)
         {
+            _responder = new SimulationObjectResponder(simulator, this);
             Material = GetComponent<Renderer>().material;
         }
-
         public void OnPointerClick(PointerEventData eventData)
         {
-            Debug.Log($"You Clicked the object {Node.Name}");
             hasInteracted = true;
-            List<ICommand> commands = new List<ICommand>();
-            commands.Add(new ClickDetectionCommand());
-            commands.Add(new ChangeColorBasedOnStatesCommand());
-            Simulator.ExecuteCommand(commands, this);
-            //This is the node that will be used to modify the simulation, so
+            _responder.OnClick();
         }
     }
 }

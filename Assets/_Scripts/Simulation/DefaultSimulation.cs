@@ -16,10 +16,10 @@ namespace _Scripts.Simulation
         private readonly SimulationInvoker _simulationInvoker = new SimulationInvoker();
         private SimulationConfig _config;
         private bool _isInitialize = false;
-        public DefaultSimulation(SimulationConfig config, BaseEventScriptableObject baseEventScriptableObject)
+        public DefaultSimulation(SimulationConfig config)
         {
             _config = config;
-            _baseEventScriptableObject = baseEventScriptableObject;
+            _baseEventScriptableObject = config.BaseEventScriptableObject;
         }
    
         public bool Simulate(SimulationConfig config)
@@ -37,6 +37,7 @@ namespace _Scripts.Simulation
         private bool Initialize(List<SimulationObject> simulationGameObjects)
         {
             _config.Data.AllCurrentObjects = simulationGameObjects;
+            _config.Data.Prefab = _config.Prefab.gameObject;
             int count = _config.Data.AllCurrentObjects.Count;
             double[] simulatedObjectStates = new double[count];
             for (int i = 0; i < count; i++)

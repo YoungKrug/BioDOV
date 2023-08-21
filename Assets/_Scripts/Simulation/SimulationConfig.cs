@@ -15,5 +15,6 @@ namespace _Scripts.Simulation
         public Button Button;
         public SimulationObject Prefab;
         public SimulationData Data;
+        public BaseEventScriptableObject BaseEventScriptableObject;
     }
 }

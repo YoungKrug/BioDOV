@@ -8,7 +8,7 @@ namespace _Scripts.ScriptableObjects
     [CreateAssetMenu(fileName = "BaseEvents", menuName = "ScriptableObjects/CreateBaseEvent", order = 1)]
     public class BaseEventScriptableObject : ScriptableObject
     {
-        private List<IEventReactor> _eventsToRaise;
+        private List<IEventReactor> _eventsToRaise = new List<IEventReactor>();
         public void Subscribe(IEventReactor eventReactor)
         {
             _eventsToRaise.Add(eventReactor);

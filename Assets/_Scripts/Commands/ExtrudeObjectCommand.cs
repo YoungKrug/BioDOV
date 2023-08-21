@@ -17,9 +17,13 @@ namespace _Scripts.Commands
                 int index = Data.AllCurrentObjects.IndexOf(simulationObject);
                 Vector3 currentScaler = simulationObject.gameObject.transform.localScale;
                 Vector3 scaleVector = Data.Prefab.transform.localScale;
+                int negativeScaler = simulationObject.Node.CurrentState > 1 ? 1 : -1;
+                Vector3 newPosition = new Vector3(simulationObject.gameObject.transform.position.x, 
+                    scaler * negativeScaler);
                 _previousStates.Add(index, currentScaler);
                 scaleVector += new Vector3(0, scaler);
                 simulationObject.gameObject.transform.localScale = scaleVector;
+                simulationObject.gameObject.transform.position = newPosition;
             }
             return true;
         }

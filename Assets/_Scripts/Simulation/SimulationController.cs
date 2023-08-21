@@ -22,8 +22,7 @@ namespace _Scripts.Simulation
                 Transform transform = simulationObject.transform;
                 transform.position = new Vector3(dist * .5f, 0);
                 simulationObject.GetComponent<SimulationObject>().Node = csv;
-                simulationObject.GetComponent<SimulationObject>().Simulator = simulator;
-                simulationObject.GetComponent<SimulationObject>().Material = simulationObject.GetComponent<Renderer>().material;
+                simulationObject.GetComponent<SimulationObject>().Init(simulator);
                 dist += 2f;
                 currentObjects.Add(simulationObject.GetComponent<SimulationObject>());
             }
