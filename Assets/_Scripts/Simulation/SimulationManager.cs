@@ -21,7 +21,6 @@ namespace _Scripts.Simulation
             Config.BaseEventScriptableObject.Subscribe(this);
             Config.Button.onClick.AddListener(Predict);
         }
-
         private void OnEventSimulate()
         {
             if (!_init)
@@ -54,5 +53,6 @@ namespace _Scripts.Simulation
             Config.CurrentSimulation = (ISimulator)eventObject;
             OnEventSimulate();
         }
+
     }
 }
