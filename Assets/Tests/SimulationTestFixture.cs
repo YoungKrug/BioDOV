@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.IO;
+using _Scripts.Commands;
 using _Scripts.CSVData;
+using _Scripts.Interface;
 using _Scripts.ScriptableObjects;
 using _Scripts.Simulation;
 using _Scripts.Simulation.SimulationSettings;
@@ -11,24 +14,98 @@ namespace Tests
     [TestFixture]
     public class SimulationTestFixture
     {
-        private DefaultSimulation _simulation;
         private SimulationConfig _config;
+        private SimulationObject _simulationObject;
         [SetUp]
-        public void SetUp()
+        public void Setup()
         {
-            _config = new SimulationConfig();
-            SimulationObject simulationObject = Resources.Load<SimulationObject>("Testing/Node_Test");
-            simulationObject.Node = new CsvNode();
-            _config.Prefab = simulationObject;
-            _config.Data.AllCurrentObjects = new List<SimulationObject>();
-            _config.Data.AllCurrentObjects.Add(simulationObject);
-            _simulation = new DefaultSimulation(_config);
+            FileInserter inserter =
+                new FileInserter(Path.Combine(Application.dataPath, "SimulationFiles/DataExtra.csv"));
+            Csv csv = inserter.ReadData();
+            _simulationObject = Resources.Load<SimulationObject>("Testing/Node_Test");
+            _simulationObject.Node = new CsvNode
+            {
+                Name = "",
+                States = csv.Data[0].States,
+                CurrentState = 0,
+            };
+            _config = new SimulationConfig
+            {
+                Prefab = _simulationObject,
+                CsvData = csv,
+                Data = new SimulationData
+                {
+                    AllCurrentObjects = new List<SimulationObject>{_simulationObject},
+                    CurrentStates = new double[]{0,1},
+                    Prefab = _simulationObject.gameObject
+                }
+            };
         }
 
         [Test]
-        public void Simulation()
+        [TestCase("Default")]
+        [TestCase("Custom")]
+        public void Simulation(string simulation)
         {
-            //Assert.IsTrue(_simulation.Simulate(_config));
+            ISimulator simulator = null;
+            switch (simulation)
+            {
+                case "Default":
+                    simulator = new DefaultSimulation(_config);
+                    break;
+                case "Custom":
+                    simulator = new CustomSimulation();
+                    break;
+            }
+            Assert.IsTrue(simulator.Simulate(_config));
+        }
+        
+        [Test]
+        [TestCase("Default")]
+        [TestCase("Custom")]
+        public void Simulation_ExecuteCommand(string simulation)
+        {
+            ISimulator simulator = null;
+            switch (simulation)
+            {
+                case "Default":
+                    simulator = new DefaultSimulation(_config);
+                    break;
+                case "Custom":
+                    simulator = new CustomSimulation();
+                    break;
+            }
+
+            List<ICommand> commands = new List<ICommand> { new ClickDetectionCommand() };
+            Assert.IsTrue(simulator.ExecuteCommand(commands, _simulationObject));
+        }
+        
+        [Test]
+        [TestCase("Default")]
+        [TestCase("Custom")]
+        public void Simulation_UndoCommand(string simulation)
+        {
+            ISimulator simulator = null;
+            bool hasUndo;
+            bool cantUndo;
+            List<ICommand> commands = new List<ICommand> { new ClickDetectionCommand() };
+            switch (simulation)
+            {
+                case "Default":
+                    simulator = new DefaultSimulation(_config);
+                    simulator.ExecuteCommand(commands, _simulationObject);
+                    hasUndo = simulator.UndoCommand();
+                    cantUndo = simulator.UndoCommand();
+                    Assert.IsTrue(hasUndo);
+                    Assert.IsFalse(cantUndo);
+                    break;
+                case "Custom":
+                    simulator = new CustomSimulation();
+                    hasUndo = simulator.UndoCommand();
+                    Assert.IsTrue(hasUndo);
+                    break;
+            }
+          
         }
     }
 }

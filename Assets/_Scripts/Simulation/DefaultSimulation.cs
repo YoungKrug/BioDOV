@@ -69,8 +69,7 @@ namespace _Scripts.Simulation
         }
         public bool UndoCommand()
         {
-            _simulationInvoker.UndoCommands(ref _config.Data);
-            return true;
+            return _simulationInvoker.UndoCommands(ref _config.Data);
         }
         public void SetAsCurrentSimulator()
         {

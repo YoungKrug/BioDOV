@@ -14,17 +14,17 @@ namespace _Scripts.Simulation
 
         public bool Simulate(SimulationConfig config)
         {
-            throw new System.NotImplementedException();
+            return true;
         }
 
         public bool ExecuteCommand(List<ICommand> commands, SimulationObject simulationObject)
         {
-            throw new System.NotImplementedException();
+            return true;
         }
 
         public bool UndoCommand()
         {
-            throw new System.NotImplementedException();
+            return true;
         }
     }
 }
