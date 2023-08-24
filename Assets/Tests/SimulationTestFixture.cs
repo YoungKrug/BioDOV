@@ -23,12 +23,7 @@ namespace Tests
                 new FileInserter(Path.Combine(Application.dataPath, "SimulationFiles/DataExtra.csv"));
             Csv csv = inserter.ReadData();
             _simulationObject = Resources.Load<SimulationObject>("Testing/Node_Test");
-            _simulationObject.Node = new CsvNode
-            {
-                Name = "",
-                States = csv.Data[0].States,
-                CurrentState = 0,
-            };
+            _simulationObject.Node = csv.Data[5];
             _config = new SimulationConfig
             {
                 Prefab = _simulationObject,
