@@ -19,7 +19,8 @@ namespace _Scripts.Simulation
             List<ICommand> commands = new List<ICommand>();
             commands.Add(new ClickDetectionCommand());
             commands.Add(new ChangeColorBasedOnStatesCommand());
-            return _simulator.ExecuteCommand(commands, _simulationObject);
+            bool? hasReturned = _simulator?.ExecuteCommand(commands, _simulationObject);
+            return hasReturned.HasValue;
             //This is the node that will be used to modify the simulation, so
         }
     }

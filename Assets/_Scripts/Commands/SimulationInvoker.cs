@@ -28,10 +28,10 @@ namespace _Scripts.Commands
             _commands.Pop();
             return true;
         }
-        public SimulationData UndoCommands(ref SimulationData data)
+        public bool UndoCommands(ref SimulationData data)
         {
             if (_commands.Count <= 0)
-                return data; 
+                return false; 
             List<ICommand> commands = _commands.Pop();
             foreach (var command in commands)
             {
@@ -39,7 +39,7 @@ namespace _Scripts.Commands
                 command.Undo();
                 data = command.Data;
             }
-            return data; 
+            return true; 
         }
         public SimulationData UndoAllCommands(ref SimulationData data)
         {

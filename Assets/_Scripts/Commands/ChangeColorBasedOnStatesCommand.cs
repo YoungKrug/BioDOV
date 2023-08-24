@@ -17,7 +17,7 @@ namespace _Scripts.Commands
         public bool Execute()
         {
             foreach (SimulationObject obj in Data.AllCurrentObjects)
-            {   
+            {
                 _previousData.Add(obj, obj.Material.color);
                 double cState = obj.Node.CurrentState;
                 Color color =  cState > 1 ? _highExpressionColor : _lowExpressionColor;

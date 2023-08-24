@@ -13,20 +13,22 @@ namespace Tests
     {
         private DefaultSimulation _simulation;
         private SimulationConfig _config;
-
         [SetUp]
         public void SetUp()
         {
             _config = new SimulationConfig();
-            List<SimulationObject> simulationObjects = new List<SimulationObject>();
-           // SimulationObjectResponder responder = new SimulationObjectResponder(new DefaultSimulation(_config))
-            //simulationObjects.Add();
+            SimulationObject simulationObject = Resources.Load<SimulationObject>("Testing/Node_Test");
+            simulationObject.Node = new CsvNode();
+            _config.Prefab = simulationObject;
+            _config.Data.AllCurrentObjects = new List<SimulationObject>();
+            _config.Data.AllCurrentObjects.Add(simulationObject);
+            _simulation = new DefaultSimulation(_config);
         }
 
         [Test]
         public void Simulation()
         {
-           // _simulation.
+            //Assert.IsTrue(_simulation.Simulate(_config));
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using _Scripts.CSVData;
+﻿using System.IO;
+using _Scripts.CSVData;
 using NUnit.Framework;
 using UnityEngine;
 
@@ -9,9 +10,10 @@ namespace Tests
     {
         public DataInserter Inserter;
         [Test]
-        [TestCase(@"F:\MasterThesis_Project\BioDOV\Assets\SimulationFiles\DataExtra.csv")]
+        [TestCase("SimulationFiles/DataExtra.csv")]
         public void TestInserter(string path)
         {
+            path = Path.Combine(Application.dataPath, path); 
             FileInserter fileInserter = new FileInserter(path);
             Csv csv = fileInserter.ReadData();
             Assert.True(csv.Data.Count > 0);

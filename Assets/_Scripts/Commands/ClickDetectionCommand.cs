@@ -19,6 +19,8 @@ namespace _Scripts.Commands
             List<SimulationObject> allObjects = Data.AllCurrentObjects;
             SimulationObject currentObject = Data.CurrentInteractedObject;
             int index = allObjects.IndexOf(currentObject);
+            if (index == -1)
+                return false;
             double oldVal = states[index];
             prevState = new KeyValuePair<int, double>(index, oldVal);
             double newVal = (oldVal + 1) % 3;
