@@ -14,10 +14,10 @@ namespace _Scripts.Commands
         private readonly Color _lowExpressionColor = Color.red;
         private readonly Color _noExpression = Color.white;
         
-        public void Execute()
+        public bool Execute()
         {
             foreach (SimulationObject obj in Data.AllCurrentObjects)
-            {   
+            {
                 _previousData.Add(obj, obj.Material.color);
                 double cState = obj.Node.CurrentState;
                 Color color =  cState > 1 ? _highExpressionColor : _lowExpressionColor;
@@ -25,9 +25,11 @@ namespace _Scripts.Commands
                     color = _noExpression;
                 obj.Material.color = color;
             }
+
+            return true;
         }
 
-        public void Undo()
+        public bool Undo()
         {
             Debug.Log("Redoing Color Changing Command");
             foreach (var val in _previousData)
@@ -36,6 +38,7 @@ namespace _Scripts.Commands
                 Color color = val.Value;
                 simulationObject.Material.color = color;
             }
+            return true;
         }
 
         public void Set(SimulationData data)

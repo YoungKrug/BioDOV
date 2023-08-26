@@ -9,7 +9,7 @@ namespace _Scripts.Commands
     {
         public SimulationData Data { get; private set; }
         private Dictionary<int, Vector3> _previousStates = new Dictionary<int, Vector3>();
-        public void Execute()
+        public bool Execute()
         {
             foreach (var simulationObject in Data.AllCurrentObjects)
             {
@@ -17,13 +17,18 @@ namespace _Scripts.Commands
                 int index = Data.AllCurrentObjects.IndexOf(simulationObject);
                 Vector3 currentScaler = simulationObject.gameObject.transform.localScale;
                 Vector3 scaleVector = Data.Prefab.transform.localScale;
+                int negativeScaler = simulationObject.Node.CurrentState > 1 ? 1 : -1;
+                Vector3 newPosition = new Vector3(simulationObject.gameObject.transform.position.x, 
+                    scaler * negativeScaler);
                 _previousStates.Add(index, currentScaler);
                 scaleVector += new Vector3(0, scaler);
                 simulationObject.gameObject.transform.localScale = scaleVector;
+                simulationObject.gameObject.transform.position = newPosition;
             }
+            return true;
         }
 
-        public void Undo()
+        public bool Undo()
         {
             foreach (var previousState in _previousStates)
             {
@@ -32,6 +37,7 @@ namespace _Scripts.Commands
                 GameObject simulationObject = Data.AllCurrentObjects[index].gameObject;
                 simulationObject.transform.localScale = previousVector;
             }
+            return true;
         }
 
         public void Set(SimulationData data)

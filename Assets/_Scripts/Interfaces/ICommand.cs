@@ -5,8 +5,8 @@ namespace _Scripts.Interface
     public interface ICommand
     {
         public SimulationData Data { get; }
-        public void Execute();
-        public void Undo();
+        public bool Execute();
+        public bool Undo();
         public void Set(SimulationData data);
     }
 }
