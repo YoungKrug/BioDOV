@@ -27,9 +27,10 @@ namespace Tests
         }
 
         [Test]
-        [TestCase(@"F:\MasterThesis_Project\BioDOV\Assets\SimulationFiles\DataExtra.csv")]
+        [TestCase("SimulationFiles/DataExtra.csv")]
         public void TestDataInserter(string path)
         {
+            path = Path.Combine(Application.dataPath, path); 
             bool isTrue = Inserter.OnInsertEvent(path);
             Assert.True(isTrue);
         }
