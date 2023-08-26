@@ -17,7 +17,8 @@ namespace _Scripts.CSVData
         public Csv _csv;
         private void Start()
         {
-            OnInsertEvent(@"F:\MasterThesis_Project\BioDOV\Assets\SimulationFiles\DataExtra.csv");
+            string path = Path.Combine(Application.dataPath, "SimulationFiles/DataExtra.csv");
+            OnInsertEvent(path);
         }
 
         public bool OnInsertEvent(string path)
