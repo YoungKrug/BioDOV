@@ -15,8 +15,9 @@ namespace _Scripts.Simulation.SimulationSettings
         {
             for (int i = 0; i < AllCurrentObjects.Count; i++)
             {
-                GameObject.Destroy(AllCurrentObjects[i]);
+                Object.Destroy(AllCurrentObjects[i].gameObject);
             }
+            Prefab = null;
             CurrentInteractedObject = null;
         }
     }

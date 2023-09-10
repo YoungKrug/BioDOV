@@ -48,11 +48,24 @@ namespace _Scripts.Simulation
             }
         }
 
+        public void NextLevel()
+        {
+            Config.CurrentSimulation.Reset();
+        }
+
         public void Execute(object eventObject)
         {
             if (eventObject.GetType() == typeof(Csv))
             {
-                Config.CsvData = (Csv) eventObject;
+                Csv csv = (Csv) eventObject;
+                if (Config.CsvData == null)
+                {
+                    Config.CsvData = csv;
+                    return;
+                }
+                Config.CsvData = csv;
+                _init = false;
+                OnEventSimulate();
                 return;
             }
             if (eventObject is SimulationConfig)

@@ -21,11 +21,14 @@ namespace _Scripts.Simulation
             _config = config;
             _baseEventScriptableObject = config.BaseEventScriptableObject;
         }
-   
+
+        
+
         public bool Simulate(SimulationConfig config)
         {
             if (!_isInitialize)
             {
+                _config.CsvData = config.CsvData;
                 Initialize(config.Data.AllCurrentObjects);
                 _isInitialize = false;
                 return true;
@@ -74,6 +77,14 @@ namespace _Scripts.Simulation
         public void SetAsCurrentSimulator()
         {
             _baseEventScriptableObject.OnEventRaised(this);
+        }
+
+        public bool Reset()
+        {
+            _isInitialize = false;
+            _config.Data.Reset();
+            _config.nextLevelScriptableObject.OnEventRaised(this);
+            return false;
         }
     }
 }

@@ -16,23 +16,42 @@ namespace _Scripts.LevelCreation
         public List<LevelDataScriptableObject> LevelsList = new List<LevelDataScriptableObject>();
         private int _level = 0;
         private LevelCreator _levelCreator;
+        private bool _isInit = false;
 
         private void Awake()
         {
             levelEventScriptableObject.Subscribe(this);
         }
 
-        private void CreateLevel(Csv csv)
+        private void Init(Csv csv)
         {
-            _levelCreator = new LevelCreator(csv);
-            Csv newCsv = _levelCreator.CreateLevel(LevelsList[_level].levelConfig);
+            if (!_isInit)
+            {
+                _isInit = true;
+                _levelCreator = new LevelCreator(csv);
+            }
+        }
+
+        private void CreateLevel()
+        {
+            if (_level > LevelsList.Count)
+                _level = 0;
+            Csv newCsv = _levelCreator.CreateLevel(LevelsList[_level++].levelConfig);
             simulatorEventObject.OnEventRaised(newCsv);
         }
 
         public void Execute(object obj)
         {
-            Csv csv = (Csv)obj;
-            CreateLevel(csv);
+            if (obj is Csv)
+            {
+                Csv csv = (Csv)obj;
+                Init(csv);
+                CreateLevel();
+            }
+            else
+            {
+                CreateLevel();
+            }
         }
     }
 }
