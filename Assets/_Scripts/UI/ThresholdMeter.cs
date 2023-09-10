@@ -5,10 +5,10 @@ namespace _Scripts.UI
     public class ThresholdMeter
     {
         
-        private readonly Slider _slider;
-        public ThresholdMeter(Slider slider)
+        private readonly Image _image;
+        public ThresholdMeter(Image image)
         {
-            _slider = slider;
+            _image = image;
         }
         public double CalculateThreshold(double[] states)
         {
@@ -20,9 +20,8 @@ namespace _Scripts.UI
                     numberOfZeroStates++;
                 }
             }
-
             double threshold = numberOfZeroStates / (double)states.Length;
-            _slider.value = (float)threshold;
+            _image.fillAmount = (float)threshold;
             return threshold;
         }
     }

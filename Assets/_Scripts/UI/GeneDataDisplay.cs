@@ -22,7 +22,7 @@ namespace _Scripts.UI
                 _createdDisplay = Object.Instantiate(_display, _canvas.transform, true);
             }
             RectTransform transform = _createdDisplay.GetComponent<RectTransform>();
-            transform.gameObject.transform.position = eventData.position;
+            transform.gameObject.transform.position = eventData.position + new Vector2(0, -80);
             _createdDisplay.gameObject.SetActive(true);
             _createdDisplay.text.text = $"Gene: {node.Name}\n Current State: {node.CurrentState}";
         }

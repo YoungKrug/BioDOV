@@ -4,6 +4,7 @@ using _Scripts.Commands;
 using _Scripts.CSVData;
 using _Scripts.Interface;
 using _Scripts.ScriptableObjects;
+using _Scripts.UI;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
@@ -14,12 +15,14 @@ namespace _Scripts.Simulation
     {
         private readonly SimulationController _simulationController = new SimulationController();
         public SimulationConfig Config = new SimulationConfig();
+        public Image progressBar;
         private bool _init;
 
         private void Awake()
         {
             Config.BaseEventScriptableObject.Subscribe(this);
             Config.Button.onClick.AddListener(Predict);
+            Config.Meter = new ThresholdMeter(progressBar);
         }
         private void OnEventSimulate()
         {

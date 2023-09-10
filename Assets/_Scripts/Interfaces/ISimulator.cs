@@ -8,6 +8,7 @@ namespace _Scripts.Interface
 {
     public interface ISimulator
     {
+        public SimulationConfig Config { get; }
         public bool Simulate(SimulationConfig config);
         public bool ExecuteCommand(List<ICommand> commands, SimulationObject simulationObject);
         public bool UndoCommand();

@@ -22,7 +22,8 @@ namespace _Scripts.Simulation
             _baseEventScriptableObject = config.BaseEventScriptableObject;
         }
 
-        
+
+        public SimulationConfig Config => _config;
 
         public bool Simulate(SimulationConfig config)
         {
