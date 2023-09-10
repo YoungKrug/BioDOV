@@ -28,7 +28,7 @@ namespace _Scripts.Commands
             return true;
         }
 
-        public bool Undo()
+        public bool Undo() //TODO Fix extrude undo functionality
         {
             foreach (var previousState in _previousStates)
             {

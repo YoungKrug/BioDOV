@@ -81,6 +81,8 @@ namespace _Scripts.Simulation
 
         public bool Reset()
         {
+            //TODO Fix commands that do not undo all the way
+            _simulationInvoker.UndoCommands(ref _config.Data);
             _isInitialize = false;
             _config.Data.Reset();
             _config.nextLevelScriptableObject.OnEventRaised(this);
