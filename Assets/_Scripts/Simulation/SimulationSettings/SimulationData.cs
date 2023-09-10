@@ -11,5 +11,13 @@ namespace _Scripts.Simulation.SimulationSettings
         public double[] CurrentStates;
         public SimulationObject CurrentInteractedObject;
         public GameObject Prefab;
+        public void Reset()
+        {
+            for (int i = 0; i < AllCurrentObjects.Count; i++)
+            {
+                GameObject.Destroy(AllCurrentObjects[i]);
+            }
+            CurrentInteractedObject = null;
+        }
     }
 }

@@ -55,6 +55,11 @@ namespace _Scripts.Simulation
                 Config.CsvData = (Csv) eventObject;
                 return;
             }
+            if (eventObject is SimulationConfig)
+            {
+                SimulationConfig config = (SimulationConfig) eventObject;
+                config.Data.Reset();
+            }
             Config.CurrentSimulation = (ISimulator)eventObject;
             OnEventSimulate();
         }

@@ -14,7 +14,7 @@ namespace _Scripts.Simulation
     {
         private readonly BaseEventScriptableObject _baseEventScriptableObject;
         private readonly SimulationInvoker _simulationInvoker = new SimulationInvoker();
-        private SimulationConfig _config;
+        public SimulationConfig _config;
         private bool _isInitialize = false;
         public DefaultSimulation(SimulationConfig config)
         {
