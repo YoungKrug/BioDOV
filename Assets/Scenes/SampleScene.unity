@@ -540,6 +540,7 @@ GameObject:
   - component: {fileID: 963194230}
   - component: {fileID: 963194231}
   - component: {fileID: 963194232}
+  - component: {fileID: 963194233}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -633,6 +634,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa6361a82be985d428c057973bfd509f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelEventScriptableObject: {fileID: 11400000, guid: f1cdf65483c883b438a9793caf4af94d, type: 2}
 --- !u!114 &963194230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -679,6 +681,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Manager: {fileID: 963194231}
   Inserter: {fileID: 963194229}
+--- !u!114 &963194233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb9c9a02f64d474cb1c14a161bae72d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelEventScriptableObject: {fileID: 11400000, guid: f1cdf65483c883b438a9793caf4af94d, type: 2}
+  simulatorEventObject: {fileID: 11400000, guid: 512fe4a7f004fb348a33c32bd04b65f0, type: 2}
+  levelData: {fileID: 11400000, guid: 32747b8de767ece4d8c5e5a7cc22e8f8, type: 2}
+  levels: []
 --- !u!1 &1077845240
 GameObject:
   m_ObjectHideFlags: 0

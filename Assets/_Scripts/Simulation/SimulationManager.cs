@@ -16,7 +16,7 @@ namespace _Scripts.Simulation
         public SimulationConfig Config = new SimulationConfig();
         private bool _init;
 
-        private void Start()
+        private void Awake()
         {
             Config.BaseEventScriptableObject.Subscribe(this);
             Config.Button.onClick.AddListener(Predict);
@@ -50,6 +50,11 @@ namespace _Scripts.Simulation
 
         public void Execute(object eventObject)
         {
+            if (eventObject.GetType() == typeof(Csv))
+            {
+                Config.CsvData = (Csv) eventObject;
+                return;
+            }
             Config.CurrentSimulation = (ISimulator)eventObject;
             OnEventSimulate();
         }

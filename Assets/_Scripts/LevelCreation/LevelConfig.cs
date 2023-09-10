@@ -8,6 +8,5 @@ namespace _Scripts.LevelCreation
         public int numberOfNodes;
         public float thresholdToCompleteLevel;
         public int nodeStateState;
-
     }
 }
