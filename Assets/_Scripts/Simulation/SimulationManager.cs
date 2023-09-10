@@ -16,7 +16,7 @@ namespace _Scripts.Simulation
         public SimulationConfig Config = new SimulationConfig();
         private bool _init;
 
-        private void Start()
+        private void Awake()
         {
             Config.BaseEventScriptableObject.Subscribe(this);
             Config.Button.onClick.AddListener(Predict);
@@ -48,8 +48,31 @@ namespace _Scripts.Simulation
             }
         }
 
+        public void NextLevel()
+        {
+            Config.CurrentSimulation.Reset();
+        }
+
         public void Execute(object eventObject)
         {
+            if (eventObject.GetType() == typeof(Csv))
+            {
+                Csv csv = (Csv) eventObject;
+                if (Config.CsvData == null)
+                {
+                    Config.CsvData = csv;
+                    return;
+                }
+                Config.CsvData = csv;
+                _init = false;
+                OnEventSimulate();
+                return;
+            }
+            if (eventObject is SimulationConfig)
+            {
+                SimulationConfig config = (SimulationConfig) eventObject;
+                config.Data.Reset();
+            }
             Config.CurrentSimulation = (ISimulator)eventObject;
             OnEventSimulate();
         }

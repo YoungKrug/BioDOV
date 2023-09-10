@@ -11,5 +11,6 @@ namespace _Scripts.Interface
         public bool Simulate(SimulationConfig config);
         public bool ExecuteCommand(List<ICommand> commands, SimulationObject simulationObject);
         public bool UndoCommand();
+        public bool Reset();
     }
 }
