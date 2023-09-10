@@ -695,8 +695,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelEventScriptableObject: {fileID: 11400000, guid: f1cdf65483c883b438a9793caf4af94d, type: 2}
   simulatorEventObject: {fileID: 11400000, guid: 512fe4a7f004fb348a33c32bd04b65f0, type: 2}
-  levelData: {fileID: 11400000, guid: 32747b8de767ece4d8c5e5a7cc22e8f8, type: 2}
-  levels: []
+  LevelsList:
+  - {fileID: 11400000, guid: 32747b8de767ece4d8c5e5a7cc22e8f8, type: 2}
 --- !u!1 &1077845240
 GameObject:
   m_ObjectHideFlags: 0

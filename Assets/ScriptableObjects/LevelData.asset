@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: LevelData
   m_EditorClassIdentifier: 
   levelConfig:
-    numberOfNodes: 8
+    numberOfNodes: 4
     thresholdToCompleteLevel: 0.7
-    nodeStateState: 1
+    nodeStateState: 0
