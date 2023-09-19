@@ -21,9 +21,11 @@ namespace _Scripts.Commands
                 Vector3 newPosition = new Vector3(simulationObject.gameObject.transform.position.x, 
                     scaler * negativeScaler);
                 _previousStates.Add(index, currentScaler);
+                Debug.Log($"{simulationObject.Node.Name} : {scaler}");
                 scaleVector += new Vector3(0, scaler);
-                simulationObject.gameObject.transform.localScale = scaleVector;
-                simulationObject.gameObject.transform.position = newPosition;
+                var gameObject = simulationObject.gameObject;
+                gameObject.transform.localScale = scaleVector;
+                gameObject.transform.position = newPosition;
             }
             return true;
         }
