@@ -15,6 +15,7 @@ namespace _Scripts.CSVData
         // Start is called before the first frame update
         
         public Csv _csv;
+        public BaseEventScriptableObject levelEventScriptableObject;
         private void Start()
         {
             string path = Path.Combine(Application.dataPath, "SimulationFiles/DataExtra.csv");
@@ -25,6 +26,8 @@ namespace _Scripts.CSVData
         {
             FileInserter inserter = new FileInserter(path);
             _csv = inserter.ReadData();
+            if(levelEventScriptableObject)
+                levelEventScriptableObject.OnEventRaised(_csv);
             return _csv.Data.Count > 0;
         }
 

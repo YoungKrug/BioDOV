@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using _Scripts.CSVData;
 using _Scripts.Interface;
 using _Scripts.ScriptableObjects;
@@ -11,6 +12,8 @@ namespace _Scripts.Simulation
     {
         [SerializeField] private BaseEventScriptableObject _baseEventScriptableObject;
         private SimulationData _simulationData;
+
+        public SimulationConfig Config { get; set; }
 
         public bool Simulate(SimulationConfig config)
         {
@@ -25,6 +28,11 @@ namespace _Scripts.Simulation
         public bool UndoCommand()
         {
             return true;
+        }
+
+        public bool Reset()
+        {
+            return false;
         }
     }
 }
