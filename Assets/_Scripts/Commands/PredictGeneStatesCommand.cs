@@ -1,6 +1,7 @@
 ﻿
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using _Scripts.Interface;
 using _Scripts.Simulation;
 using _Scripts.Simulation.SimulationSettings;
@@ -13,9 +14,10 @@ namespace _Scripts.Commands
     {
         private Dictionary<int, double> _previousStates = new Dictionary<int, double>();
         public SimulationData Data { get; private set; }
+        public readonly StringBuilder _docString = new StringBuilder();
         public bool Execute()
         {
-            
+            _docString.Clear();
             bool canPredict = Data.AllCurrentObjects.Any(x => x.hasInteracted);
             if (!canPredict)
             {
@@ -38,6 +40,8 @@ namespace _Scripts.Commands
                 simulatedObject.Node.CurrentState = newState;
                 Data.CurrentStates[index] = newState;
                 _previousStates.Add(index, prevState);
+                _docString.Append($"{simulatedObject.Node.Name} Prediction, OldState: " +
+                                  $"{prevState}, NewState: {newState}");
             }
             return true;
         }
@@ -63,7 +67,7 @@ namespace _Scripts.Commands
         }
         public override string ToString()
         {
-            return "";
+            return _docString.ToString();
         }
     }
 }

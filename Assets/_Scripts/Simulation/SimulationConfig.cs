@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using _Scripts.CSVData;
+using _Scripts.Documentation;
 using _Scripts.Interface;
 using _Scripts.ScriptableObjects;
 using _Scripts.Simulation.SimulationSettings;
@@ -20,6 +21,7 @@ namespace _Scripts.Simulation
         public BaseEventScriptableObject BaseEventScriptableObject;
         public BaseEventScriptableObject nextLevelScriptableObject;
         public ThresholdMeter Meter;
+        public DocumentationWriter DocWriter;
 
     }
 }

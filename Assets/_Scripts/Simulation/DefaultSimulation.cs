@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Text;
 using _Scripts.Commands;
 using _Scripts.CSVData;
+using _Scripts.Documentation;
 using _Scripts.Interface;
 using _Scripts.ScriptableObjects;
 using _Scripts.Simulation.SimulationSettings;
@@ -13,6 +15,7 @@ namespace _Scripts.Simulation
 {
     public class DefaultSimulation : ISimulator // Invoker Class
     {
+        private readonly string _testPath = "C:/Users/gregj/Documents/test.txt";
         private readonly BaseEventScriptableObject _baseEventScriptableObject;
         private readonly SimulationInvoker _simulationInvoker = new SimulationInvoker();
         public SimulationConfig _config;
@@ -41,6 +44,7 @@ namespace _Scripts.Simulation
 
         private bool Initialize(List<SimulationObject> simulationGameObjects)
         {
+            _config.DocWriter = new DocumentationWriter();
             _config.Data.AllCurrentObjects = simulationGameObjects;
             _config.Data.Prefab = _config.Prefab.gameObject;
             int count = _config.Data.AllCurrentObjects.Count;
@@ -59,8 +63,7 @@ namespace _Scripts.Simulation
             List<ICommand> commands = new List<ICommand>();
             commands.Add(new ChangeColorBasedOnStatesCommand());
             ExecuteCommand(commands, null);
-            _simulationInvoker.RemoveRecentCommand(); //The initial command does is removed as the user
-            //Should not be able to undo to the baseline state
+            _simulationInvoker.RemoveRecentCommand(); 
             return true;
         }
 
@@ -68,12 +71,12 @@ namespace _Scripts.Simulation
         public bool ExecuteCommand(List<ICommand> commands, SimulationObject simulationObject)
         {
             _config.Data.CurrentInteractedObject = simulationObject;
-            ToDocumentation(commands);
             _simulationInvoker.ExecuteCommand(commands, ref _config.Data);
+            ToDocumentation(commands);
             return true;
 
         }
-        public void ToDocumentation(List<ICommand> commands)
+        private void ToDocumentation(List<ICommand> commands)
         {
             StringBuilder stringBuilder = new StringBuilder();
             foreach (var command in commands)
@@ -82,11 +85,14 @@ namespace _Scripts.Simulation
                 stringBuilder.Append("\n");
             }
             Debug.Log(stringBuilder.ToString());
+            _config.DocWriter.AddData(stringBuilder.ToString());
             
         }
         public bool UndoCommand()
         {
-            return _simulationInvoker.UndoCommands(ref _config.Data);
+            bool returnedVal = _simulationInvoker.UndoCommands(ref _config.Data);
+            _config.DocWriter.UndoLastData();
+            return returnedVal;
         }
         public void SetAsCurrentSimulator()
         {
@@ -101,6 +107,12 @@ namespace _Scripts.Simulation
             _config.Data.Reset();
             _config.nextLevelScriptableObject.OnEventRaised(this);
             return false;
+        }
+
+        public bool FinishSimulation()
+        {
+            FileWriter writer = new FileWriter();
+            return writer.WriteToFile(_testPath, _config.DocWriter.ToString());
         }
     }
 }
