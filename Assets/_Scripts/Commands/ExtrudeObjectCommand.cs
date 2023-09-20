@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text;
 using _Scripts.Interface;
 using _Scripts.Simulation.SimulationSettings;
 using UnityEngine;
@@ -8,9 +9,11 @@ namespace _Scripts.Commands
     public class ExtrudeObjectCommand : ICommand
     {
         public SimulationData Data { get; private set; }
-        private Dictionary<int, Vector3> _previousStates = new Dictionary<int, Vector3>();
+        private readonly Dictionary<int, Vector3> _previousStates = new Dictionary<int, Vector3>();
+        private readonly StringBuilder _docString = new StringBuilder();
         public bool Execute()
         {
+            _docString.Clear();
             foreach (var simulationObject in Data.AllCurrentObjects)
             {
                 float scaler = (float)simulationObject.Node.PredictionModel.UnRoundedPredictionValue;
@@ -21,11 +24,12 @@ namespace _Scripts.Commands
                 Vector3 newPosition = new Vector3(simulationObject.gameObject.transform.position.x, 
                     scaler * negativeScaler);
                 _previousStates.Add(index, currentScaler);
-                Debug.Log($"{simulationObject.Node.Name} : {scaler}");
                 scaleVector += new Vector3(0, scaler);
                 var gameObject = simulationObject.gameObject;
                 gameObject.transform.localScale = scaleVector;
                 gameObject.transform.position = newPosition;
+                _docString.Append($"{simulationObject.Node.Name} was extruded from" +
+                                  $" {currentScaler} -> {scaleVector}\n");
             }
             return true;
         }
@@ -45,6 +49,10 @@ namespace _Scripts.Commands
         public void Set(SimulationData data)
         {
             Data = data;
+        }
+        public override string ToString()
+        {
+            return _docString.ToString();
         }
     }
 }

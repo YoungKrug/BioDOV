@@ -80,5 +80,10 @@ namespace _Scripts.Simulation
             OnEventSimulate();
         }
 
+        public void WriteDocumentation()
+        {
+            Config.CurrentSimulation.FinishSimulation();
+        }
+
     }
 }

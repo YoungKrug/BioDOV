@@ -34,5 +34,10 @@ namespace _Scripts.Simulation
         {
             return false;
         }
+
+        public bool FinishSimulation()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
