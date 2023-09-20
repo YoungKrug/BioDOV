@@ -85,13 +85,13 @@ namespace _Scripts.Simulation
                 stringBuilder.Append("\n");
             }
             Debug.Log(stringBuilder.ToString());
-            _config.DocWriter.AddData(stringBuilder.ToString());
+            _config.DocWriter?.AddData(stringBuilder.ToString());
             
         }
         public bool UndoCommand()
         {
             bool returnedVal = _simulationInvoker.UndoCommands(ref _config.Data);
-            _config.DocWriter.UndoLastData();
+            _config.DocWriter?.UndoLastData();
             return returnedVal;
         }
         public void SetAsCurrentSimulator()
