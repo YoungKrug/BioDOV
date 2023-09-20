@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using _Scripts.Commands;
 using _Scripts.CSVData;
 using _Scripts.Interface;
@@ -67,9 +68,21 @@ namespace _Scripts.Simulation
         public bool ExecuteCommand(List<ICommand> commands, SimulationObject simulationObject)
         {
             _config.Data.CurrentInteractedObject = simulationObject;
+            ToDocumentation(commands);
             _simulationInvoker.ExecuteCommand(commands, ref _config.Data);
             return true;
 
+        }
+        public void ToDocumentation(List<ICommand> commands)
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+            foreach (var command in commands)
+            {
+                stringBuilder.Append(command.ToString());
+                stringBuilder.Append("\n");
+            }
+            Debug.Log(stringBuilder.ToString());
+            
         }
         public bool UndoCommand()
         {

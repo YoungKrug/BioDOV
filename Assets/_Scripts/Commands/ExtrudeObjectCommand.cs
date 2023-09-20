@@ -46,5 +46,9 @@ namespace _Scripts.Commands
         {
             Data = data;
         }
+        public override string ToString()
+        {
+            return "";
+        }
     }
 }
