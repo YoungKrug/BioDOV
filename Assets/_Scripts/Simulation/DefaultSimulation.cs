@@ -6,6 +6,7 @@ using _Scripts.Commands;
 using _Scripts.CSVData;
 using _Scripts.Documentation;
 using _Scripts.Interface;
+using _Scripts.LevelCreation;
 using _Scripts.ScriptableObjects;
 using _Scripts.Simulation.SimulationSettings;
 using _Scripts.Statistics;
@@ -48,6 +49,7 @@ namespace _Scripts.Simulation
             _config.DocWriter = new DocumentationWriter();
             _config.Data.AllCurrentObjects = simulationGameObjects;
             _config.Data.Prefab = _config.Prefab.gameObject;
+           
             int count = _config.Data.AllCurrentObjects.Count;
             double[] simulatedObjectStates = new double[count];
             for (int i = 0; i < count; i++)
@@ -65,7 +67,9 @@ namespace _Scripts.Simulation
             commands.Add(new ChangeColorBasedOnStatesCommand());
             ExecuteCommand(commands, null);
             _simulationInvoker.RemoveRecentCommand(); 
-            DeeperAnalysis(simulationGameObjects);
+            //DeeperAnalysis(simulationGameObjects);
+            _config.MapObjects = new MapSimulationObjects(_config);
+            _config.MapObjects.MapBasedOnRelationship();
             return true;
         }
 

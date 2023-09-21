@@ -26,8 +26,8 @@ namespace _Scripts.Statistics
                 CalculateCorrelation(initialData, otherData)
             };
             //Weighted measure
-            double weightOne = 0.45d;
-            double weightTwo = 0.55d;
+            const double weightOne = 0.45d;
+            const double weightTwo = 0.55d;
 
             double weightedRes = (weightOne * variances[0]) + (weightTwo * variances[1]);
             Debug.Log($"{variances[0]}, and {variances[1]}: {weightedRes}");
