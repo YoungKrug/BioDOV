@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Accord.Statistics.Testing;
 using MathNet.Numerics.Statistics;
 using UnityEngine;
 
@@ -19,6 +20,9 @@ namespace _Scripts.Statistics
 
         public double AnalysisRelationship(List<double> initialData, List<double> otherData)
         {
+           // Accord.Statistics.Testing.MannWhitneyWilcoxonTest wilcoxonTest =
+             //   new MannWhitneyWilcoxonTest(initialData.ToArray(), otherData.ToArray());
+          //  wilcoxonTest.
             //Lets apply weights
             List<double> variances = new List<double>
             {
@@ -26,8 +30,8 @@ namespace _Scripts.Statistics
                 CalculateCorrelation(initialData, otherData)
             };
             //Weighted measure
-            const double weightOne = 0.45d;
-            const double weightTwo = 0.55d;
+            const double weightOne = 0.25d;
+            const double weightTwo = 0.75d;
 
             double weightedRes = (weightOne * variances[0]) + (weightTwo * variances[1]);
             Debug.Log($"{variances[0]}, and {variances[1]}: {weightedRes}");

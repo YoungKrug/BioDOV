@@ -68,8 +68,8 @@ namespace _Scripts.Simulation
             ExecuteCommand(commands, null);
             _simulationInvoker.RemoveRecentCommand(); 
             //DeeperAnalysis(simulationGameObjects);
-            _config.MapObjects = new MapSimulationObjects(_config);
-            _config.MapObjects.MapBasedOnRelationship();
+            _config.MapObjects ??= new MapSimulationObjects();
+            _config.MapObjects.MapBasedOnRelationship(_config);
             return true;
         }
 
