@@ -27,7 +27,7 @@ namespace _Scripts.Commands
                 scaleVector += new Vector3(0, scaler);
                 var gameObject = simulationObject.gameObject;
                 gameObject.transform.localScale = scaleVector;
-                gameObject.transform.position = newPosition;
+                //gameObject.transform.position = newPosition;
                 _docString.Append($"{simulationObject.Node.Name} was extruded from" +
                                   $" {currentScaler} -> {scaleVector}\n");
             }
