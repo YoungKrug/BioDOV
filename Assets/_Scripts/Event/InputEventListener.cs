@@ -2,6 +2,7 @@
 using System.Linq;
 using _Scripts.Interface;
 using _Scripts.ScriptableObjects;
+using Accord;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UIElements;
@@ -28,13 +29,17 @@ namespace _Scripts.Event
         {
             foreach (var receiver in _receiversList)
             {
-                receiver.ExecuteKey();
+                if (receiver.Keys.Contains(key))
+                {
+                    receiver.ExecuteKey(key);
+                }
             }
         }
         public void Execute(object obj)
         {
             var inputReceivers = (IInputReceivers)obj;
             _receiversList.Add(inputReceivers);
+            Debug.Log(obj.ToString());
         }
     }
 }

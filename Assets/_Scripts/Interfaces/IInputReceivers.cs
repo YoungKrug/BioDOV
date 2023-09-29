@@ -4,7 +4,7 @@ namespace _Scripts.Interface
 {
     public interface IInputReceivers
     {
-        KeyCode Key { get; }
-        void ExecuteKey();
+        KeyCode[] Keys { get; }
+        void ExecuteKey(KeyCode code);
     }
 }
