@@ -12,14 +12,17 @@ namespace _Scripts.Event
     public class InputEventListener : MonoBehaviour, IEventReactor
     {
         public BaseEventScriptableObject inputEventScriptableObject;
-        private List<IInputReceivers> _receiversList;
-        private IEventReactor _eventReactorImplementation;
+        private readonly List<IInputReceivers> _receiversList = new List<IInputReceivers>();
 
-        void Update()
+        private void Awake()
+        {
+            inputEventScriptableObject.Subscribe(this);
+        }
+        private void Update()
         {
             foreach (KeyCode keyCode in System.Enum.GetValues(typeof(KeyCode)))
             {
-                if (Input.GetKeyDown(keyCode))
+                if (Input.GetKey(keyCode))
                 {
                     CheckForInputEvent(keyCode);
                 }
