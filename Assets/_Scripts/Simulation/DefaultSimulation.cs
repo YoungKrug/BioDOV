@@ -6,6 +6,7 @@ using _Scripts.Commands;
 using _Scripts.CSVData;
 using _Scripts.Documentation;
 using _Scripts.Interface;
+using _Scripts.LevelCreation;
 using _Scripts.ScriptableObjects;
 using _Scripts.Simulation.SimulationSettings;
 using _Scripts.Statistics;
@@ -16,6 +17,7 @@ namespace _Scripts.Simulation
     public class DefaultSimulation : ISimulator // Invoker Class
     {
         private readonly string _testPath = "C:/Users/gregj/Documents/test.txt";
+        private readonly string _testPath2 = "C:/Users/gregj/Documents/test1.txt";
         private readonly BaseEventScriptableObject _baseEventScriptableObject;
         private readonly SimulationInvoker _simulationInvoker = new SimulationInvoker();
         public SimulationConfig _config;
@@ -47,13 +49,14 @@ namespace _Scripts.Simulation
             _config.DocWriter = new DocumentationWriter();
             _config.Data.AllCurrentObjects = simulationGameObjects;
             _config.Data.Prefab = _config.Prefab.gameObject;
+           
             int count = _config.Data.AllCurrentObjects.Count;
             double[] simulatedObjectStates = new double[count];
             for (int i = 0; i < count; i++)
             {
                 simulatedObjectStates[i] = _config.Data.AllCurrentObjects[i].Node.CurrentState;
             }
-
+            
             foreach (var simulatedObject in simulationGameObjects)
             {
                 simulatedObject.Node.PredictionModel =
@@ -64,9 +67,32 @@ namespace _Scripts.Simulation
             commands.Add(new ChangeColorBasedOnStatesCommand());
             ExecuteCommand(commands, null);
             _simulationInvoker.RemoveRecentCommand(); 
+            //DeeperAnalysis(simulationGameObjects);
+            _config.MapObjects ??= new MapSimulationObjects();
+            _config.MapObjects.MapBasedOnRelationship(_config);
             return true;
         }
 
+        private void DeeperAnalysis(List<SimulationObject> simulationObjects)
+        {
+            RelationshipStatisticalAnalysisModel relationshipModel = new RelationshipStatisticalAnalysisModel();
+            FileWriter writer = new FileWriter();
+            StringBuilder stringBuilder = new StringBuilder();
+            foreach (var simObj in simulationObjects)
+            {
+                foreach (var otherObj in simulationObjects)
+                {
+                    if(simObj.Node.Name.Equals(otherObj.Node.Name))
+                        continue;
+                    double relationship = relationshipModel.AnalysisRelationship(simObj.Node.States,
+                        otherObj.Node.States);
+                    string verbose = $"{simObj.Node.Name} and {otherObj.Node.Name} Relationship: {relationship}\n";
+                    stringBuilder.Append(verbose);
+                    Debug.Log(verbose);
+                }
+            }
+            writer.WriteToFile(_testPath2, stringBuilder.ToString());
+        }
        
         public bool ExecuteCommand(List<ICommand> commands, SimulationObject simulationObject)
         {
