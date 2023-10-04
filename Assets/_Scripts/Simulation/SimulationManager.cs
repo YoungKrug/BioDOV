@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using _Scripts.Commands;
 using _Scripts.CSVData;
 using _Scripts.Interface;
+using _Scripts.Planning;
+using _Scripts.Planning.Interfaces;
 using _Scripts.ScriptableObjects;
 using _Scripts.UI;
 using UnityEngine;
@@ -11,12 +13,13 @@ using UnityEngine.UI;
 
 namespace _Scripts.Simulation
 {
-    public class SimulationManager: MonoBehaviour, IEventReactor // Move this to SimulationController
+    public class SimulationManager: MonoBehaviour, IEventReactor, IPlannable // Move this to SimulationController
     {
         private readonly SimulationController _simulationController = new SimulationController();
         public SimulationConfig Config = new SimulationConfig();
         public Image progressBar;
         private bool _init;
+        public int Order => 2;
 
         private void Awake()
         {
@@ -85,5 +88,32 @@ namespace _Scripts.Simulation
             Config.CurrentSimulation.FinishSimulation();
         }
 
+        
+        public bool CheckForPrerequisite(object obj)
+        {
+            return obj.GetType() == typeof(Csv);
+        }
+
+        public PlannerConfig PlannedExecution(PlannerConfig plannerConfig)
+        {
+            object preObject = plannerConfig.InvolvedObject;
+            if (!CheckForPrerequisite(preObject))
+            {
+                plannerConfig.PlannerState = Planner.PlannerState.PlanFailed;
+                return null;
+            }
+            Csv csv = (Csv) preObject;
+            if (Config.CsvData == null)
+            {
+                Config.CsvData = csv;
+                return null;
+            }
+            Config.CsvData = csv;
+            _init = false;
+            OnEventSimulate();
+            plannerConfig.InvolvedObject = csv;
+            return plannerConfig;
+            
+        }
     }
 }
