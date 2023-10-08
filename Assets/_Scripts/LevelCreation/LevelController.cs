@@ -76,5 +76,9 @@ namespace _Scripts.LevelCreation
             plannerConfig.InvolvedObject = csv;
             return plannerConfig;
         }
+        public string GetName()
+        {
+            return this.name;
+        }
     }
 }

@@ -115,5 +115,10 @@ namespace _Scripts.Simulation
             return plannerConfig;
             
         }
+
+        public string GetName()
+        {
+            return this.name;
+        }
     }
 }

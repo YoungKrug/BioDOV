@@ -40,6 +40,10 @@ namespace _Scripts.CSVData
             //This class has no prerequisites 
             return true;
         }
+        public string GetName()
+        {
+            return this.name;
+        }
 
         public PlannerConfig PlannedExecution(PlannerConfig plannerConfig)
         {

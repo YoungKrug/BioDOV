@@ -1,10 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using _Scripts.Planning.Interfaces;
+using UnityEngine;
 
 namespace _Scripts.Planning
 {
-    public class PlannerCreator
+    public class PlannerCreator : MonoBehaviour
     {
-        public List<IPlannable> Planner = new List<IPlannable>();
+        public PlannerScriptableObject PlannerScriptableObject;
+        private void Awake()
+        {
+            PlannerScriptableObject.Init();
+        }
     }
 }
