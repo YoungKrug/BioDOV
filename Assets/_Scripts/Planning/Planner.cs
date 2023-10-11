@@ -13,7 +13,6 @@ namespace _Scripts.Planning
     {
 
         private BaseEventScriptableObject _plannerEventSo;
-        private readonly PlannerBranch _plannerBranches;
         private readonly List<IPlannable> _plannables = new List<IPlannable>();
         private readonly Stack<IPlannable> _planQueue = new Stack<IPlannable>();
         private PlannerState _currentState = PlannerState.PlanStarting;
@@ -33,7 +32,6 @@ namespace _Scripts.Planning
 
         public bool CreatePlanQueue()
         {
-            List<IPlannable> branch = _plannerBranches.PlannableBranch;
             List<IPlannable> orderPlans = _plannables.OrderBy(x => x.Order).ToList();
             foreach (var plan in orderPlans)
             {

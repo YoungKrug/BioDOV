@@ -11,9 +11,9 @@ namespace _Scripts.Planning
         private PlannerBranch _branch;
         private List<IPlannable> _plannables = new List<IPlannable>();
 
-        public void Init()
+        public void Init(List<IPlannable> objectsToPlan)
         {
-            IPlannable[] allPlannableObjects = (IPlannable[]) GameObject.FindObjectsOfType(typeof(IPlannable));
+            IPlannable[] allPlannableObjects = objectsToPlan.ToArray();
             List<IPlannable> plannableObjects = new List<IPlannable>();
             foreach (var obj in allPlannableObjects)
             {
