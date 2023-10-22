@@ -18,6 +18,11 @@ namespace _Scripts.Statistics
             return dataOne.Covariance(dataTwo);
         }
 
+        private double CrossCorrelation(List<double> dataOne, List<double> dataTwo)
+        {
+            return CrossCorrelationAnalysisModel.CalculateCrossCorrelation(dataOne.ToArray(), dataTwo.ToArray());
+        }
+
         public double AnalysisRelationship(List<double> initialData, List<double> otherData)
         {
            // Accord.Statistics.Testing.MannWhitneyWilcoxonTest wilcoxonTest =
@@ -29,6 +34,10 @@ namespace _Scripts.Statistics
                 CovarianceTest(initialData, otherData),
                 CalculateCorrelation(initialData, otherData)
             };
+            double cross = CrossCorrelation(initialData, otherData);
+            double crossOther = CrossCorrelation(otherData, initialData);
+            Debug.Log($"Cross Correlation: {cross}");
+            Debug.Log($"Cross Correlation Other: {crossOther}");
             //Weighted measure
             const double weightOne = 0.25d;
             const double weightTwo = 0.75d;

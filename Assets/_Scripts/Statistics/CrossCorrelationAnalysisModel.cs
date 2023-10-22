@@ -1,12 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using _Scripts.Documentation;
+using MathNet.Numerics.LinearAlgebra;
+using MathNet.Numerics.LinearAlgebra.Double;
+using Accord.MachineLearning;
+using Accord.MachineLearning;
+using Accord.MachineLearning.VectorMachines;
+using Accord.MachineLearning.VectorMachines.Learning;
+using Accord.Statistics.Kernels;
 
 namespace _Scripts.Statistics
 {
-    public class CrossCorrelationAnalysisModel
+    public static class CrossCorrelationAnalysisModel
     {
-        public double CalculateCrossCorrelation(double[] signalOne, double[] signalTwo)
+        public static double CalculateCrossCorrelation(double[] signalOne, double[] signalTwo)
         {
             int sOneLength = signalOne.Length; //N
             int sTwoLength = signalTwo.Length; //M
@@ -28,12 +37,39 @@ namespace _Scripts.Statistics
                 double normalizedCorrelation = correlationAtTime / normalizedMagnitude;
                 correlationAtTimeLag.Add(normalizedCorrelation);
             }
-            return 0;
+            return correlationAtTimeLag.Average();
         }
 
-        private double Magnitude(double[] arr)
+        private static double Magnitude(double[] arr)
         {
             return Math.Sqrt(arr.Sum(element => Math.Pow(element, 2)));
+        }
+
+        public static void Varmachine()
+        {
+            // Sample data
+            double[] input = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+            double[] output = { 2, 4, 6, 8, 10, 12, 14, 16, 18 };
+
+            // Create a support vector machine (SVM) for regression
+           // var machine = new SupportVectorMachine<Gaussian>(input.Lengt h, );
+
+            // Create a learning algorithm
+            var teacher = new SequentialMinimalOptimization<Gaussian>()
+            {
+                Complexity = 100 // Adjust complexity parameter
+            };
+
+            // Train the machine
+        //     var error = teacher.Learn(machine, input, output);
+        //
+        //     // Get the estimated parameters
+        //     double alpha = machine.Weights[0]; // Intercept
+        //     double beta1 = machine.Weights[1]; // Coefficient for lagged value
+        //
+        //     // Output the results
+        //     Console.WriteLine($"Intercept (alpha): {alpha}");
+        //     Console.WriteLine($"Coefficient for lagged value (beta1): {beta1}");
         }
     }
 }

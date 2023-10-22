@@ -35,11 +35,12 @@ namespace _Scripts.LevelCreation
                         continue;
                     string key = $"{simObj.Node.Name}{delimiter}{otherObj.Node.Name}";
                     string oppositeKey = $"{otherObj.Node.Name}{delimiter}{simObj.Node.Name}";
+                    Debug.Log(key);
                     double relationship = _model.AnalysisRelationship(simObj.Node.States,
                         otherObj.Node.States);
-                    double relationship1 = _model.AnalysisRelationship(otherObj.Node.States,
-                        simObj.Node.States);
-                    Debug.Log($"Relation 1: {relationship}, opposite relation: {relationship1}");
+                  //  double relationship1 = _model.AnalysisRelationship(otherObj.Node.States,
+                     //   simObj.Node.States);
+                    //Debug.Log($"Relation 1: {relationship}, opposite relation: {relationship1}");
                     string verbose = $"{simObj.Node.Name} and {otherObj.Node.Name} Relationship: {relationship}\n";
                     Vector3 positionVector = new Vector3(0, (float)relationship, (float)relationship);
                     simObj.gameObject.transform.position += positionVector;
