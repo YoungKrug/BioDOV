@@ -9,12 +9,17 @@ using Debug = UnityEngine.Debug;
 
 namespace _Scripts.Statistics
 {
-    public class GrangerCausalityTestingModel
+    public static class GrangerCausalityTestingModel
     {
-        public static bool IsGrangerCausal(double[] seriesA, double[] seriesB, int maxLag = 10)
+        public enum GrangerRelationship : int
         {
-            int aBSignificantCounter = 0; //If A and B are significant, Bidirection relationship
-            int aSignificantCounter = 0; // If just A is significant, A grangers B
+            Bidirectional = 0,
+            Directional = 1
+        };
+        public static GrangerRelationship IsGrangerCausal(double[] seriesA, double[] seriesB, int maxLag = 10)
+        {
+            int aBSignificantCounter = 0; //If A and B are significant, Bi-direction relationship
+            int aSignificantCounter = 0; // If just A is significant, A Granger B
             // Iterate over lags
             for (int lag = 1; lag <= maxLag; lag++)
             {
@@ -63,7 +68,7 @@ namespace _Scripts.Statistics
             Debug.Log($"Evidence: AB significance: {aBSignificantCounter}/{maxLag}, " +
                       $"A Significance: {aSignificantCounter}/{maxLag}");
             // No evidence of Granger causality
-            return false;
+            return aBSignificantCounter > aSignificantCounter? GrangerRelationship.Bidirectional : GrangerRelationship.Directional;
         }
         
         private static void FitAutoregressiveModel(double[] lagged, double[] series, out double alpha, out double beta,

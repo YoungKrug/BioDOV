@@ -38,15 +38,12 @@ namespace _Scripts.LevelCreation
                     Debug.Log(key);
                     double relationship = _model.AnalysisRelationship(simObj.Node.States,
                         otherObj.Node.States);
-                    bool isGranger = GrangerCausalityTestingModel.IsGrangerCausal(simObj.Node.States.ToArray(),
+                    GrangerCausalityTestingModel.GrangerRelationship isGranger = GrangerCausalityTestingModel.IsGrangerCausal(simObj.Node.States.ToArray(),
                         otherObj.Node.States.ToArray());
-                    bool isGrangerOpp = GrangerCausalityTestingModel.IsGrangerCausal(otherObj.Node.States.ToArray(),
+                    GrangerCausalityTestingModel.GrangerRelationship isGrangerOpp = GrangerCausalityTestingModel.IsGrangerCausal(otherObj.Node.States.ToArray(),
                         simObj.Node.States.ToArray());
-                   // Debug.Log($"{simObj.Node.Name} is Granger: {isGranger} to {otherObj.Node.Name}");
-                    //Debug.Log($"{otherObj.Node.Name} is Granger: {isGrangerOpp} to {simObj.Node.Name}");
-                  //  double relationship1 = _model.AnalysisRelationship(otherObj.Node.States,
-                     //   simObj.Node.States);
-                    //Debug.Log($"Relation 1: {relationship}, opposite relation: {relationship1}");
+                    Debug.Log($"{simObj.Node.Name} is {isGranger.ToString()} to {otherObj.Node.Name}");
+                    Debug.Log($"{otherObj.Node.Name} is {isGrangerOpp.ToString()} to {simObj.Node.Name}");
                     string verbose = $"{simObj.Node.Name} and {otherObj.Node.Name} Relationship: {relationship}\n";
                     Vector3 positionVector = new Vector3(0, (float)relationship, (float)relationship);
                     simObj.gameObject.transform.position += positionVector;
