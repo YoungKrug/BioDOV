@@ -101,7 +101,7 @@ namespace _Scripts.Statistics
                         pls.Learn(inputs, outputs); // this is the learned model that transforms the data
                 _partialLeastSquaresAnalysis = pls;
                 _linearRegressionModel = multivariateLinearRegression;
-                //Debug.Log($"{target}: {e}");
+                Debug.Log($"{target}: {e}");
             }
         }
     }

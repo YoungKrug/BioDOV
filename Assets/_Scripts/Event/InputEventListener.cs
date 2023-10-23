@@ -42,7 +42,6 @@ namespace _Scripts.Event
         {
             var inputReceivers = (IInputReceivers)obj;
             _receiversList.Add(inputReceivers);
-            Debug.Log(obj.ToString());
         }
     }
 }

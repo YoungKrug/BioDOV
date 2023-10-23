@@ -34,10 +34,6 @@ namespace _Scripts.Statistics
                 CovarianceTest(initialData, otherData),
                 CalculateCorrelation(initialData, otherData)
             };
-            double cross = CrossCorrelation(initialData, otherData);
-            double crossOther = CrossCorrelation(otherData, initialData);
-            Debug.Log($"Cross Correlation: {cross}");
-            Debug.Log($"Cross Correlation Other: {crossOther}");
             //Weighted measure
             const double weightOne = 0.25d;
             const double weightTwo = 0.75d;
