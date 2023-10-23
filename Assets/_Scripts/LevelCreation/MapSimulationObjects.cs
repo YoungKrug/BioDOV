@@ -92,6 +92,7 @@ namespace _Scripts.LevelCreation
                         relationshipRenderer.ConnectLines(line, gradient);
                         
                     }
+                    _lineRenderers.Add(line);
                 }
             }
             writer.WriteToFile(path, stringBuilder.ToString());
