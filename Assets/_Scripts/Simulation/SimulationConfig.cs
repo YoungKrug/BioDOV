@@ -24,5 +24,6 @@ namespace _Scripts.Simulation
         public ThresholdMeter Meter;
         public DocumentationWriter DocWriter;
         public MapSimulationObjects MapObjects;
+        public Gradient lineGradient;
     }
 }

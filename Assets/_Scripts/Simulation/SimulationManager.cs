@@ -5,6 +5,7 @@ using _Scripts.CSVData;
 using _Scripts.Interface;
 using _Scripts.ScriptableObjects;
 using _Scripts.UI;
+using Codice.CM.Client.Differences.Graphic;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
@@ -16,6 +17,7 @@ namespace _Scripts.Simulation
         private readonly SimulationController _simulationController = new SimulationController();
         public SimulationConfig Config = new SimulationConfig();
         public Image progressBar;
+        public Gradient relationshipGradiant;
         private bool _init;
 
         private void Awake()
@@ -31,6 +33,7 @@ namespace _Scripts.Simulation
                 Initialize();
                 _init = true;
             }
+            Config.lineGradient = relationshipGradiant;
             Config.CurrentSimulation.Simulate(Config);
         }
 

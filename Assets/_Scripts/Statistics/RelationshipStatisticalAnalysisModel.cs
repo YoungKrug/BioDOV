@@ -18,6 +18,11 @@ namespace _Scripts.Statistics
             return dataOne.Covariance(dataTwo);
         }
 
+        private double CrossCorrelation(List<double> dataOne, List<double> dataTwo)
+        {
+            return CrossCorrelationAnalysisModel.CalculateCrossCorrelation(dataOne.ToArray(), dataTwo.ToArray());
+        }
+
         public double AnalysisRelationship(List<double> initialData, List<double> otherData)
         {
            // Accord.Statistics.Testing.MannWhitneyWilcoxonTest wilcoxonTest =
@@ -34,7 +39,7 @@ namespace _Scripts.Statistics
             const double weightTwo = 0.75d;
 
             double weightedRes = (weightOne * variances[0]) + (weightTwo * variances[1]);
-            Debug.Log($"{variances[0]}, and {variances[1]}: {weightedRes}");
+            //Debug.Log($"{variances[0]}, and {variances[1]}: {weightedRes}");
             double result = weightedRes;
             return double.IsNaN(result) ? 0 : result;
         }

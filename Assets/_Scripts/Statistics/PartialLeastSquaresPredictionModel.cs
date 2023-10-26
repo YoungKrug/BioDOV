@@ -80,7 +80,7 @@ namespace _Scripts.Statistics
                 Method = AnalysisMethod.Center,
                 Algorithm = PartialLeastSquaresAlgorithm.NIPALS //The more indepth model **
             };
-            Debug.Log(target);
+            //Debug.Log(target);
             try
             {
                 MultivariateLinearRegression
