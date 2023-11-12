@@ -86,8 +86,20 @@ namespace _Scripts.LevelCreation
                             simObjPos,
                             otherObjPos
                         });
-                        gradient.colorKeys[1].color = Color.white;
-                        gradient.colorKeys[0].color = quantitativeRelationship > 0 ? positiveRelationship : negativeRelationship;
+                        Color first = quantitativeRelationship > 0 ? 
+                            positiveRelationship : negativeRelationship;
+                        Color other = Color.cyan;
+                        gradient = new Gradient
+                        {
+                            colorKeys = new GradientColorKey[]
+                            {
+                                new GradientColorKey(first, 0),
+                                new GradientColorKey(other, 1)
+                            }
+                        };
+                        // gradient.colorKeys[1].color = Color.white;
+                        // gradient.colorKeys[0].color = quantitativeRelationship > 0 ? 
+                        //     positiveRelationship : negativeRelationship;
                         line.colorGradient = gradient;
                         relationshipRenderer.ConnectLines(line, gradient);
                         
