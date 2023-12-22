@@ -128,7 +128,7 @@ namespace _Scripts.Simulation
         public bool Reset()
         {
             //TODO Fix commands that do not undo all the way
-            _simulationInvoker.UndoCommands(ref _config.Data);
+            _simulationInvoker.UndoAllCommands(ref _config.Data);
             _isInitialize = false;
             _config.Data.Reset();
             _config.nextLevelScriptableObject.OnEventRaised(this);
@@ -137,8 +137,11 @@ namespace _Scripts.Simulation
 
         public bool FinishSimulation()
         {
+            string path = _config.InputField.text;
+            if (string.IsNullOrEmpty(path))
+                return false;
             FileWriter writer = new FileWriter();
-            return writer.WriteToFile(_testPath, _config.DocWriter.ToString());
+            return writer.WriteToFile(path, _config.DocWriter.ToString());
         }
     }
 }

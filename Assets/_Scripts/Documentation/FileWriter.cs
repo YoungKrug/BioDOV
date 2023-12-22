@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using UnityEngine;
 
 namespace _Scripts.Documentation
@@ -7,10 +8,19 @@ namespace _Scripts.Documentation
     {
         public bool WriteToFile(string path, string data)
         {
-            File.WriteAllText(path, data);
-            string file = File.ReadAllText(path);
-            Debug.Log(file);
-            return !string.IsNullOrEmpty(file);
+            try
+            {
+                File.WriteAllText(path, data);
+                string file = File.ReadAllText(path);
+                Debug.Log(file);
+                return !string.IsNullOrEmpty(file);
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e);
+            }
+
+            return false;
         }
     }
 }

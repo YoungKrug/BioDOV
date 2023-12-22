@@ -25,5 +25,6 @@ namespace _Scripts.Simulation
         public DocumentationWriter DocWriter;
         public MapSimulationObjects MapObjects;
         public Gradient lineGradient;
+        public InputField InputField;
     }
 }

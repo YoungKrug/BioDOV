@@ -16,12 +16,12 @@ namespace _Scripts.CSVData
         
         public Csv _csv;
         public BaseEventScriptableObject levelEventScriptableObject;
-        private void Start()
+        public void Initialize()
         {
-            string path = Path.Combine(Application.dataPath, "SimulationFiles/DataExtra.csv");
+            string path = Path.Combine(Application.streamingAssetsPath, "ExampleSimFile.csv");
             OnInsertEvent(path);
         }
-
+        //Inserts 
         public bool OnInsertEvent(string path)
         {
             FileInserter inserter = new FileInserter(path);

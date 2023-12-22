@@ -53,8 +53,8 @@ namespace _Scripts.Statistics
                     predictedListB[i] = alphaB + betaB * outputB[i - 1]; //output A is already lagged at time
                 }
 
-                ChiSquareTest chiSquareModelA = new ChiSquareTest(outputA, predictedListA, degreesOfFreedomA);
-                ChiSquareTest chiSquareModelB = new ChiSquareTest(outputB, predictedListB, degreesOfFreedomB);
+                ChiSquareTest chiSquareModelA = new ChiSquareTest(outputA, predictedListB, degreesOfFreedomA);
+                ChiSquareTest chiSquareModelB = new ChiSquareTest(outputB, predictedListA, degreesOfFreedomB);
                 switch (chiSquareModelA.Significant)
                 {
                     case true when chiSquareModelB.Significant:

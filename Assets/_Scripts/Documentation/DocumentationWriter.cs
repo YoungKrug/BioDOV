@@ -14,12 +14,12 @@ namespace _Scripts.Documentation
         }
         public bool UndoLastData()
         {
-            _documentationData?.Pop();
+            if(_documentationData.Count > 0)
+                _documentationData?.Pop();
             return true;
         }
         public override string ToString()
         {
-            _data.Clear();
             while (_documentationData.Count > 0)
             {
                 string docString = _documentationData.Pop();

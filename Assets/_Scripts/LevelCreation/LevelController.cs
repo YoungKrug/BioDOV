@@ -34,7 +34,7 @@ namespace _Scripts.LevelCreation
 
         private void CreateLevel()
         {
-            if (_level > LevelsList.Count)
+            if (_level + 1 > LevelsList.Count)
                 _level = 0;
             Csv newCsv = _levelCreator.CreateLevel(LevelsList[_level++].levelConfig);
             simulatorEventObject.OnEventRaised(newCsv);

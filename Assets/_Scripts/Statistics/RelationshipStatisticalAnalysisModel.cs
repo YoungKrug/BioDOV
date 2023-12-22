@@ -25,9 +25,6 @@ namespace _Scripts.Statistics
 
         public double AnalysisRelationship(List<double> initialData, List<double> otherData)
         {
-           // Accord.Statistics.Testing.MannWhitneyWilcoxonTest wilcoxonTest =
-             //   new MannWhitneyWilcoxonTest(initialData.ToArray(), otherData.ToArray());
-          //  wilcoxonTest.
             //Lets apply weights
             List<double> variances = new List<double>
             {
