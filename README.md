@@ -10,3 +10,20 @@ and make better discoveries. Therefore, we introduce BioDOV (Biological Data Ori
 Visualization). This tool will utilize game design principles to expand upon current 
 visualization methods in the scientific community. Through this proof of concept, we will 
 create the groundwork for better visualization technologies.
+
+
+## Project
+
+This project has been designed as a proof of concept for creating a biological
+network. Through the use of a multiple statistics we were able to create a simulation
+that can be modified as needed, and can help scientist research.
+
+## How to Use
+
+To use the tool:
+
+Input a CSV File, and it will be automatically populated.
+
+
+## Thesis
+The link the the thesis: 
