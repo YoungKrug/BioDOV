@@ -40,7 +40,7 @@ namespace _Scripts.CSVData
                 }
             }
             csv.Data = nodesList;
-            csv.Data.RemoveRange(0,3);
+            //csv.Data.RemoveRange(0,3);
             foreach (var node in csv.Data)
             {
                 node.CurrentState = node.States[0]; // Set them all to there initial State

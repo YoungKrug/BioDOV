@@ -5,7 +5,8 @@ using UnityEngine;
 
 namespace _Scripts.CSVData
 { 
-    public class CsvNode
+    public class CsvNode //Keep in mind, all the data is numerical. We may have to add some special conditions for this
+                         // in the future.
     {
         public List<double> States = new List<double>();
         public double CurrentState;
