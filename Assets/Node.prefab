@@ -119,3 +119,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Material: {fileID: 0}
+  hasInteracted: 0
+  displayInformation: {fileID: 8472491920874405977, guid: 96bbb93bf60816c469fff5faad3f2d83, type: 3}

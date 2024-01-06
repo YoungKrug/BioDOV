@@ -43,6 +43,8 @@ namespace _Scripts.Commands
         }
         public SimulationData UndoAllCommands(ref SimulationData data)
         {
+            if(_commands.Count <= 0)
+                return data;
             int count = _commands.Count;
             for (int i = 0; i < count; i++)
             {

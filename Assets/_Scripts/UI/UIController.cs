@@ -10,7 +10,6 @@ namespace _Scripts.UI
         public DataInserter Inserter;
         public void CreateSimulation()
         {
-            Manager.Config.CsvData = Inserter._csv;
             DefaultSimulation defaultSimulation = new DefaultSimulation(Manager.Config); // Zombie Code
             defaultSimulation.SetAsCurrentSimulator();
         }

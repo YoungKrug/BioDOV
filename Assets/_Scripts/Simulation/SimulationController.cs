@@ -36,6 +36,7 @@ namespace _Scripts.Simulation
             commands.Add(new ChangeColorBasedOnStatesCommand());
             commands.Add(new ExtrudeObjectCommand());
             config.CurrentSimulation.ExecuteCommand(commands, null);
+            config.Meter?.CalculateThreshold(config.CurrentSimulation.Config.Data.CurrentStates);
             return true;
         }
     }

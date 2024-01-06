@@ -1,8 +1,12 @@
 ﻿using System.Collections.Generic;
 using _Scripts.CSVData;
+using _Scripts.Documentation;
 using _Scripts.Interface;
+using _Scripts.LevelCreation;
 using _Scripts.ScriptableObjects;
 using _Scripts.Simulation.SimulationSettings;
+using _Scripts.UI;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace _Scripts.Simulation
@@ -16,5 +20,11 @@ namespace _Scripts.Simulation
         public SimulationObject Prefab;
         public SimulationData Data;
         public BaseEventScriptableObject BaseEventScriptableObject;
+        public BaseEventScriptableObject nextLevelScriptableObject;
+        public ThresholdMeter Meter;
+        public DocumentationWriter DocWriter;
+        public MapSimulationObjects MapObjects;
+        public Gradient lineGradient;
+        public InputField InputField;
     }
 }
